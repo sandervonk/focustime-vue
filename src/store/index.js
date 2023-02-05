@@ -20,7 +20,7 @@ export default createStore({
     },
     CLEAR_USER(state) {
       state.user = null;
-      router.push({ path: "/" });
+      router.push({ path: "/auth" });
     },
   },
   actions: {
@@ -29,8 +29,10 @@ export default createStore({
     },
     async logout({ commit }) {
       await auth.signOut();
+      if (router.currentRoute.path !== "/auth") {
+        new SuccessToast("Logged out successfully!", 2000);
+      }
       commit("CLEAR_USER");
-      new SuccessToast("Logged out successfully!", 2000);
     },
     async sign_in({ commit }, attempted_details) {
       try {
