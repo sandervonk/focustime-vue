@@ -6,7 +6,7 @@ const routes = [
     path: "/",
     name: "AppView",
     component: AppView,
-    meta: { requiresAuth: false },
+    meta: { requiresAuth: true },
   },
   {
     path: "/auth",

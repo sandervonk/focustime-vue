@@ -1,4 +1,8 @@
-const { defineConfig } = require('@vue/cli-service')
-module.exports = defineConfig({
-  transpileDependencies: true
-})
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+module.exports = {
+  publicPath: process.env.NODE_ENV === "production" ? "/focustime-vue/" : "/",
+  configureWebpack: {
+    plugins: [new MiniCssExtractPlugin()],
+  },
+};

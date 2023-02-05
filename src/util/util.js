@@ -3,9 +3,7 @@ require("./util.css");
 
 ("use strict");
 /** URI SEARCH TERMS **/
-var params = new URLSearchParams(window.location.search),
-  user,
-  userDocCache = {};
+
 if (window.history) {
   history.replaceState({}, "", window.location.href.substr(0, window.location.href.length - window.location.search.length));
 }
@@ -76,7 +74,7 @@ class Popup {
     }
     this.type = type;
     this.duration = duration;
-    this.icon = require(iconPath);
+    this.icon = iconPath;
     this.action = action;
     this.showPopup();
   }

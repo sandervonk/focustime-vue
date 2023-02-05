@@ -1,7 +1,7 @@
 import { createStore } from "vuex";
 import { auth, db } from "../firebase";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import { Toast, ErrorToast, WarningToast, SuccessToast, cleanError } from "@/util/util";
+import { ErrorToast, SuccessToast, cleanError } from "@/util/util";
 import "firebase/firestore";
 // import router functions
 import router from "../router";
@@ -21,8 +21,6 @@ export default createStore({
     CLEAR_USER(state) {
       state.user = null;
       router.push({ path: "/" });
-      // logout toast
-      new SuccessToast("Logged out successfully!", 2000);
     },
   },
   actions: {
@@ -32,6 +30,7 @@ export default createStore({
     async logout({ commit }) {
       await auth.signOut();
       commit("CLEAR_USER");
+      new SuccessToast("Logged out successfully!", 2000);
     },
     async sign_in({ commit }, attempted_details) {
       try {

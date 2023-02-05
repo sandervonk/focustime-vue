@@ -92,7 +92,7 @@ export default {
   display: flex;
   flex-flow: column;
   align-items: stretch;
-  justify-content: start;
+  justify-content: flex-start;
   pointer-events: all;
 }
 .raised_section > .section_content > h1.title {
