@@ -1,6 +1,6 @@
 <template>
   <div class="input-pair">
-    <input type="checkbox" :name="role + '-input'" :id="role + '-input'" />
+    <input type="checkbox" :name="role + '-input'" :id="role + '-input'" @input="handleInput" :checked="modelValue" />
     <label :for="role + '-input'" class="checkbox-label">
       <div class="checkbox-icon"></div>
       <slot>Checkbox Label</slot></label
@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import { ref } from "vue";
 export default {
   name: "checkbox_pair",
   props: {
@@ -17,14 +16,22 @@ export default {
       type: String,
       default: "type",
     },
+    modelValue: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       role_caps: this.role.charAt(0).toUpperCase() + this.role.slice(1),
-      value: ref(false),
     };
   },
-  methods: {},
+  emits: ["update:modelValue"],
+  methods: {
+    handleInput(e) {
+      this.$emit("update:modelValue", e.target.checked);
+    },
+  },
 };
 </script>
 
@@ -46,6 +53,7 @@ label {
   font-weight: 500;
   transition: color 0.1s ease-out;
 }
+
 input:checked + .checkbox-label {
   color: var(--accent-1);
 }
@@ -55,11 +63,16 @@ input:checked + .checkbox-label {
   border-radius: 50px;
   background-color: var(--login-secondary);
   margin-right: 10px;
-  transition: background-color 0.1s ease-out;
-  background-image: url(../assets/icon/check-alt.png);
-  background-image: url(../assets/icon/check-alt.svg);
+  background-image: url(../assets/icon/general/check-alt.png);
+  background-image: url(../assets/icon/general/check-alt.svg);
   background-repeat: no-repeat;
   background-size: contain;
+  transition: background-color 0.1s ease-out;
+}
+input:checked + .checkbox-label .checkbox-icon {
+  background-color: var(--login-accent);
+  background-image: url(../assets/icon/general/check.png);
+  background-image: url(../assets/icon/general/check.svg);
 }
 .input-pair > input[type="checkbox"] {
   position: absolute;

@@ -1,38 +1,40 @@
 <template>
   <div class="input-pair">
-    <object :title="role_caps + 'Input'" class="input-icon" :alt="role_caps + ' field icon'" :data="require('../assets/icon/' + role + '.svg')" type="image/svg+xml">
-      <img alt="icon" :src="'../assets/icon/' + role + '.png'" />
+    <object :title="role_caps + ' Input'" class="input-icon" :alt="role_caps + ' field icon'" :data="require('../assets/icon/general/' + role + '.svg')" type="image/svg+xml">
+      <img alt="icon" :src="require('../assets/icon/general/' + role + '.png')" />
     </object>
-    <input type="{{ input_type }}" name="{{role}}" :placeholder="role_caps" @input="handleInput" />
+    <input :type="type" :name="role" :placeholder="role_caps" @input="handleInput" :value="modelValue" />
   </div>
 </template>
 
 <script>
-import { ref } from "vue";
 export default {
-  emits: ["input"],
+  emits: ["update:modelValue"],
+  methods: {
+    handleInput(e) {
+      //   emit input event
+      this.$emit("update:modelValue", e.target.value);
+    },
+  },
   name: "input_pair",
   props: {
     role: {
       type: String,
       default: "type",
     },
-    input_type: {
+    type: {
       type: String,
       default: "text",
+    },
+    modelValue: {
+      type: String,
+      default: "",
     },
   },
   data() {
     return {
       role_caps: this.role.charAt(0).toUpperCase() + this.role.slice(1),
-      value: ref(""),
     };
-  },
-  methods: {
-    handleInput(e) {
-      this.value = e.target.value;
-      this.$emit("input", this.value);
-    },
   },
 };
 </script>
@@ -56,6 +58,11 @@ export default {
   overflow: hidden;
   cursor: help;
   user-select: none;
+}
+.input-pair > .input-icon *,
+svg {
+  user-select: none;
+  pointer-events: none;
 }
 .input-pair > input {
   border-radius: 7px;

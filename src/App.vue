@@ -6,8 +6,19 @@
   <router-view />
 </template>
 
+<script>
+export default {};
+</script>
+
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,600;1,700&family=Roboto:wght@400;500;600;700&display=swap");
+#app > main {
+  flex-grow: 1;
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+  justify-content: stretch;
+}
 html {
   background-color: var(--bg);
   display: flex;
@@ -31,6 +42,11 @@ html {
   color: #2c3e50;
   height: 100%;
   width: 100%;
+  /* sizing */
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+  justify-content: stretch;
 }
 
 nav {

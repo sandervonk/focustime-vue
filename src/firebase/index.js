@@ -19,4 +19,16 @@ const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
+// import store for following
+import store from "../store";
+
+// enable database persistence and ensure user stays logged in
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    store.dispatch("login", user);
+  } else {
+    store.dispatch("logout");
+  }
+});
+
 export { auth, db };
