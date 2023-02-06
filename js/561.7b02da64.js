@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkfocustime_vue"]=self["webpackChunkfocustime_vue"]||[]).push([[561],{7561:function(e,u,n){n.r(u),n.d(u,{default:function(){return o}});var s=n(6252);const t={class:"header-large page-title"};function r(e,u,n,r,c,a){return(0,s.wg)(),(0,s.iD)("h1",t,"Focus Session")}var c={},a=n(3744);const i=(0,a.Z)(c,[["render",r]]);var o=i}}]);
+//# sourceMappingURL=561.7b02da64.js.map
