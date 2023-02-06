@@ -1,8 +1,8 @@
 <template>
-  <nav>
+  <!-- <nav>
     <router-link to="/auth">Auth</router-link> |
     <router-link to="/">App</router-link>
-  </nav>
+  </nav> -->
   <router-view />
 </template>
 
@@ -33,6 +33,8 @@ html {
   height: 100%;
   width: 100%;
   box-sizing: border-box;
+  overscroll-behavior: none;
+  overflow: hidden;
 }
 #app {
   font-family: Lato, Helvetica, Arial, sans-serif;
@@ -134,5 +136,32 @@ button.disabled {
 }
 .flex-spacer {
   flex: 1 1 auto;
+}
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header-text {
+  font-size: 26px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+.header-small {
+  font-size: 17px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+.header-large {
+  font-size: 34px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-nowrap {
+  flex-wrap: nowrap;
 }
 </style>

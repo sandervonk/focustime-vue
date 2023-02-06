@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import AppView from "../views/AppView.vue";
+import PageNotFound from "../views/PageNotFound.vue";
 
 const routes = [
   {
@@ -7,6 +8,28 @@ const routes = [
     name: "AppView",
     component: AppView,
     meta: { requiresAuth: true },
+    children: [
+      // index, create, timer pages  },
+
+      {
+        path: "",
+        name: "AppIndexView",
+        component: () => import("../views/App/AppIndexView.vue"),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: "create",
+        name: "CreateView",
+        component: () => import("../views/App/CreateView.vue"),
+        meta: { requiresAuth: true },
+      },
+      {
+        path: "session",
+        name: "FocusSessionView",
+        component: () => import("../views/App/FocusSessionView.vue"),
+        meta: { requiresAuth: true },
+      },
+    ],
   },
   {
     path: "/auth",
@@ -19,6 +42,11 @@ const routes = [
     name: "TermsView",
     component: () => import("../views/TermsView.vue"),
     meta: { requiresAuth: false },
+  },
+  {
+    path: "/:catchAll(.*)*",
+    name: "PageNotFound",
+    component: PageNotFound,
   },
 ];
 

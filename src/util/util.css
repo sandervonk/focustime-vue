@@ -192,6 +192,7 @@ button {
   animation: popupin 0.25s;
   max-height: calc(100% - 40px);
   overflow-y: auto;
+  font-family: Lato, Montserrat, "Open Sans", sans-serif;
 }
 .popup::-webkit-scrollbar {
   display: none;

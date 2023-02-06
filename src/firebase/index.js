@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -23,12 +23,18 @@ const auth = getAuth(app);
 import store from "../store";
 
 // enable database persistence and ensure user stays logged in
+// keep user state synced with firebase
 auth.onAuthStateChanged((user) => {
   if (user) {
-    store.dispatch("login", user);
+    store.commit("SET_USER", user);
+    console.log("User is logged in: ", user);
   } else {
-    store.dispatch("logout");
+    store.commit("CLEAR_USER");
+    console.log("User is logged out");
   }
 });
+function userDoc() {
+  return db.collection("users").doc(auth.currentUser.uid);
+}
 
-export { auth, db };
+export { auth, db, userDoc };

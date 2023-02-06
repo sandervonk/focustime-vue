@@ -6,11 +6,19 @@
       <input_pair role="password" type="password" v-model="auth_form.password" />
       <div id="login-checkboxes" v-if="is_creating">
         <checkbox_pair role="age" v-model="auth_form.age">I'm at least 13 years old</checkbox_pair>
-        <checkbox_pair role="terms" v-model="auth_form.terms">I agree to the&nbsp;<router-link to="/terms">terms and conditions</router-link></checkbox_pair>
+        <checkbox_pair role="terms" v-model="auth_form.terms"
+          >I agree to the&nbsp;<router-link to="/terms"
+            >terms and conditions</router-link
+          ></checkbox_pair
+        >
       </div>
       <div class="flex-spacer"></div>
-      <a class="toggletext" @click="is_creating = !is_creating">{{ is_creating ? "I already have an account" : "Don't have an account?" }}</a>
-      <button class="large_action stuck" @click="submit_auth" :class="{ disabled: disabled }">Sign Up</button>
+      <a class="toggletext" @click="is_creating = !is_creating">{{
+        is_creating ? "I already have an account" : "Don't have an account?"
+      }}</a>
+      <button class="large_action stuck" @click="submit_auth" :class="{ disabled: disabled }">
+        {{ is_creating ? "Sign Up" : "Sign In" }}
+      </button>
     </raised_section>
   </main>
 </template>
@@ -53,7 +61,14 @@ export default {
 
   computed: {
     disabled() {
-      return this.is_creating ? !this.auth_form.name || !this.auth_form.email || !check_email(this.auth_form.email) || !this.auth_form.password || !this.auth_form.age || !this.auth_form.terms : !this.auth_form.email || !check_email(this.auth_form.email) || !this.auth_form.password;
+      return this.is_creating
+        ? !this.auth_form.name ||
+            !this.auth_form.email ||
+            !check_email(this.auth_form.email) ||
+            !this.auth_form.password ||
+            !this.auth_form.age ||
+            !this.auth_form.terms
+        : !this.auth_form.email || !check_email(this.auth_form.email) || !this.auth_form.password;
     },
   },
 };
@@ -90,35 +105,5 @@ router-link {
   color: var(--accent-1);
   text-decoration: none;
   font-weight: bold;
-}
-button.large_action {
-  border: none;
-  background: var(--primary-bg);
-  color: var(--on-primary-bg);
-  font-family: "Roboto", sans-serif;
-  font-size: 20px;
-  font-weight: 500;
-  cursor: pointer;
-  outline: none;
-  padding: 10px 20px;
-  box-sizing: border-box;
-  height: 50px;
-  width: calc(100% - 2 * var(--pad-button));
-  max-width: 500px;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  pointer-events: all;
-}
-button.large_action.stuck {
-  --pad-button: 30px;
-  position: fixed;
-  bottom: var(--pad-button);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
-  margin: 0;
 }
 </style>

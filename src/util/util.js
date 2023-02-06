@@ -5,7 +5,11 @@ require("./util.css");
 /** URI SEARCH TERMS **/
 
 if (window.history) {
-  history.replaceState({}, "", window.location.href.substr(0, window.location.href.length - window.location.search.length));
+  history.replaceState(
+    {},
+    "",
+    window.location.href.substr(0, window.location.href.length - window.location.search.length)
+  );
 }
 
 /** TOAST **/
@@ -85,7 +89,11 @@ class Popup {
       buttons = $("<div></div>", { id: "popup-buttons" });
 
     for (let actionInfo of this.action) {
-      $("<button></button>", { class: "popup-button " + (actionInfo[2] ? actionInfo[2] : ""), onclick: actionInfo[0], text: actionInfo[1] }).appendTo(buttons);
+      $("<button></button>", {
+        class: "popup-button " + (actionInfo[2] ? actionInfo[2] : ""),
+        onclick: actionInfo[0],
+        text: actionInfo[1],
+      }).appendTo(buttons);
     }
     if (this.icon) {
       $(`<img alt='Popup Icon' src="${this.icon}" class="popup-icon">`).appendTo(toast);
@@ -124,7 +132,12 @@ $(document.body).on("click", ".popup-overlay", function () {
 
 /** Other **/
 $("[placeholdaction]").click(function () {
-  new Toast("This feature hasn't been implemented yet, sorry! 🤫", "default", 1500, require("../assets/icon/toast/unimplemented-icon.svg"));
+  new Toast(
+    "This feature hasn't been implemented yet, sorry! 🤫",
+    "default",
+    1500,
+    require("../assets/icon/toast/unimplemented-icon.svg")
+  );
 });
 function cleanError(error) {
   switch (error.code) {
@@ -148,6 +161,6 @@ function cleanError(error) {
       return error.message.replace("Error ", "");
   }
 }
-
+window.removePopup = removePopup;
 // expose functions to global scope
 export { removePopup, Popup, Toast, ErrorToast, WarningToast, SuccessToast, cleanError };
