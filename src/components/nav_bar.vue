@@ -91,6 +91,9 @@ nav {
   align-items: stretch;
   justify-content: stretch;
   padding: 0;
+  z-index: 1;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 .nav-item {
   height: 100%;

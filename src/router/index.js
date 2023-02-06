@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import AppView from "../views/AppView.vue";
-import PageNotFound from "../views/PageNotFound.vue";
+import OnboardingView from "../views/OnboardingView.vue";
 
 const routes = [
   {
@@ -15,7 +15,11 @@ const routes = [
         path: "",
         name: "AppIndexView",
         component: () => import("../views/App/AppIndexView.vue"),
-        meta: { requiresAuth: true },
+        meta: {
+          requiresAuth: true,
+          enterClass: "animate__animated animate__fadeInLeft",
+          leaveClass: "animate__animated animate__fadeOutRight",
+        },
       },
       {
         path: "create",
@@ -27,7 +31,11 @@ const routes = [
         path: "session",
         name: "FocusSessionView",
         component: () => import("../views/App/FocusSessionView.vue"),
-        meta: { requiresAuth: true },
+        meta: {
+          requiresAuth: true,
+          enterClass: "animate__animated animate__fadeInLeft",
+          leaveClass: "animate__animated animate__fadeOutRight",
+        },
       },
     ],
   },
@@ -44,9 +52,14 @@ const routes = [
     meta: { requiresAuth: false },
   },
   {
+    path: "/onboarding",
+    name: "OnboardingView",
+    component: OnboardingView,
+  },
+  {
     path: "/:catchAll(.*)*",
-    name: "PageNotFound",
-    component: PageNotFound,
+    name: "OnboardingView",
+    component: OnboardingView,
   },
 ];
 

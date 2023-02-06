@@ -1,5 +1,5 @@
 <template>
-  <h1>Focus Session</h1>
+  <h1 class="header-large page-title">Focus Session</h1>
 </template>
 
 <script>

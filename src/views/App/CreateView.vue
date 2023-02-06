@@ -1,5 +1,5 @@
 <template>
-  <h1>Create Task</h1>
+  <h1 class="header-large page-title">Create Task</h1>
 </template>
 
 <script>

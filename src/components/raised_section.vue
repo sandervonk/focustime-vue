@@ -43,7 +43,11 @@ export default {
       return this.title !== "";
     },
   },
-  methods: {},
+  methods: {
+    toggle() {
+      this.isRaised = !this.isRaised;
+    },
+  },
 };
 </script>
 
@@ -83,6 +87,7 @@ export default {
   align-items: stretch;
   /* transition */
   transition: transform 0.5s ease;
+  z-index: 1;
 }
 .raised_section:not(.raised) {
   transform: translateX(-50%) translateY(calc(100% - 25px));

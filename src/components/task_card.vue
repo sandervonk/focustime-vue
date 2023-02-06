@@ -74,7 +74,7 @@
 
 <script>
 // import libaries to use to archive this task or mark it as complete in firebase firestore
-import { db, userDoc, getClassJSON } from "../firebase/";
+import { db, getClassJSON } from "../firebase/";
 import { ref, computed } from "vue";
 // import fallback_svg from "./fallback_svg";
 import task_info_card from "./task_info_card";
@@ -142,24 +142,24 @@ export default {
     togglePinned() {
       this.is_pinned = !this.is_pinned;
     },
-    handleComplete() {
-      this.is_completed = !this.is_completed;
-      userDoc().update({
-        tasks: db.FieldValue.arrayRemove(this.task),
-      });
-      userDoc().update({
-        tasks: db.FieldValue.arrayUnion({
-          ...this.task,
-          is_completed: this.is_completed,
-        }),
-      });
-    },
-    handleArchive() {
-      userDoc().update({
-        tasks: db.FieldValue.arrayRemove(this.task),
-        archive: db.FieldValue.arrayUnion(this.task),
-      });
-    },
+    // handleComplete() {
+    //   this.is_completed = !this.is_completed;
+    //   userDoc().update({
+    //     tasks: db.FieldValue.arrayRemove(this.task),
+    //   });
+    //   userDoc().update({
+    //     tasks: db.FieldValue.arrayUnion({
+    //       ...this.task,
+    //       is_completed: this.is_completed,
+    //     }),
+    //   });
+    // },
+    // handleArchive() {
+    //   userDoc().update({
+    //     tasks: db.FieldValue.arrayRemove(this.task),
+    //     archive: db.FieldValue.arrayUnion(this.task),
+    //   });
+    // },
   },
 };
 
@@ -187,6 +187,8 @@ export default {
   transition: transform 0.5s ease-out, opacity 0.25s ease-out, height 0.25s ease-out,
     margin 0.25s ease-out;
   transform-origin: left center;
+  flex-shrink: 0;
+  flex-grow: 0;
 }
 .task-card.swipe-out {
   transform: scale(0);

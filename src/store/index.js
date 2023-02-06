@@ -2,7 +2,7 @@ import { createStore } from "vuex";
 import { auth, db } from "../firebase";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { ErrorToast, SuccessToast, cleanError } from "@/util/util";
-import "firebase/firestore";
+import { getDoc, doc, collection } from "firebase/firestore";
 // import router functions
 import router from "../router";
 
@@ -23,8 +23,23 @@ export default createStore({
       state.user = null;
       router.push({ path: "/auth" });
     },
+    SET_TASKS(state, tasks) {
+      state.tasks = tasks;
+    },
+    SET_NAME(state, name) {
+      state.name = name;
+    },
   },
   actions: {
+    async get_tasks({ commit }) {
+      const tasks = [];
+      // get doc snapshot using stored user uid
+      const docSnap = await getDoc(doc(collection(db, "users"), this.state.user.uid));
+      const tasksData = docSnap.data().tasks;
+      // push tasks to tasks array
+      commit("SET_TASKS", tasksData);
+      commit("SET_NAME", docSnap.data().name);
+    },
     async login({ commit }, user) {
       commit("SET_USER", user);
     },

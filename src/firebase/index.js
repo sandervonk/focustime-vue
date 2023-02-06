@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, doc, onSnapshot } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBtV4ajO6P0PH3aje1J0UedJj8zSYgqy9w",
@@ -20,10 +20,12 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 
 // import store for following
+
 import store from "../store";
 
 // enable database persistence and ensure user stays logged in
 // keep user state synced with firebase
+
 auth.onAuthStateChanged((user) => {
   if (user) {
     store.commit("SET_USER", user);
@@ -33,8 +35,11 @@ auth.onAuthStateChanged((user) => {
     console.log("User is logged out");
   }
 });
-function userDoc() {
-  return db.collection("users").doc(auth.currentUser.uid);
-}
+// add lisener for changes to user doc in firestore
+// onSnapshot(doc(db, "users", store.state.user.uid), (doc) => {
+//   console.log("Firebase set tasks: ", doc.data());
+//   // update user data in store
+//   store.commit("SET_TASKS", doc.data().name);
+// });
 
-export { auth, db, userDoc };
+export { auth, db };
