@@ -47,6 +47,10 @@ export default {
     tasks() {
       // sort tasks by date. in order of date being set to: pinned, priority, no date, dates by time
       let tasks = this.$store.state.tasks;
+      // if store.state.settings and store.state.settings.do_hide_complete is true, filter out completed tasks
+      if (this.$store.state.settings && this.$store.state.settings.do_hide_complete) {
+        tasks = tasks.filter((task) => !task.completed);
+      }
       return tasks;
     },
     greeting() {

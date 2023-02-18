@@ -55,6 +55,18 @@ export default {
       return classes[tag] ? classes[tag] : tag;
     },
   },
+  watch: {
+    // watch for prop changes as defined by parent, then update local data
+    task: {
+      handler: function (newVal, oldVal) {
+        // update all local data
+        this.title_clean;
+        this.task_date;
+        this.get_tag;
+      },
+      deep: true,
+    },
+  },
 };
 </script>
 

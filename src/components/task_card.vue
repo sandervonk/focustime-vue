@@ -166,6 +166,22 @@ export default {
       new Toast("Task archived!", "default", 1000, require("@/assets/icon/toast/archive-icon.svg"));
     },
   },
+  watch: {
+    // watch for prop changes as defined by parent, then update local data
+    task: {
+      handler: function (newVal) {
+        if (newVal.is_completed !== this.is_completed) {
+          setTimeout(() => {
+            this.editing = false;
+          }, 500);
+        }
+
+        this.is_completed = newVal.is_completed;
+        this.task_id;
+      },
+      deep: true,
+    },
+  },
 };
 </script>
 
@@ -226,7 +242,7 @@ iframe.task-card-content,
   user-select: none;
 }
 .task-card.editing.completed > .task-card-content {
-  margin-left: -75px;
+  margin-left: -75px !important;
 }
 .task-card .task-card-title {
   font-family: "Montserrat", sans-serif;
@@ -405,5 +421,35 @@ iframe.task-card-content,
   transform: translateX(-100%) scale(0) !important;
   transform-origin: center left;
   transition: opacity 0.5s ease-out, transform 0.5s ease-out, margin 0.5s ease-out !important;
+}
+/* completed */
+
+.task-card.completed > .task-card-content {
+  position: relative;
+  background-color: #e0ead7;
+}
+.task-card.completed .task-card-action {
+  filter: none !important;
+  z-index: 20 !important;
+  opacity: 1 !important;
+}
+.task-card.completed > .task-card-content::before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: "\2705";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: 600;
+  box-sizing: border-box;
+  padding: 10px;
+  top: 0;
+  left: 0;
+}
+.task-card.completed > .task-card-content > * {
+  opacity: 0.25;
+  filter: blur(2px);
 }
 </style>
