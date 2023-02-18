@@ -50,7 +50,25 @@ export default {
   methods: {
     submit_auth() {
       if (this.disabled) {
-        new WarningToast("Please fill out all fields correctly", 10000);
+        if (
+          this.is_creating &&
+          this.auth_form.name &&
+          this.auth_form.email &&
+          this.auth_form.password
+        ) {
+          let warnings = [];
+          if (!this.auth_form.terms) warnings.push("agree to the terms and conditions");
+
+          if (!this.auth_form.age) warnings.push("confirm your age");
+
+          new WarningToast("Please " + warnings.join(" and ") + " to create an account", 10000);
+        } else {
+          new WarningToast(
+            "Please correctly fill out all fields to " +
+              (this.is_creating ? "create an account" : "login"),
+            5000
+          );
+        }
       } else if (this.is_creating) {
         this.$store.dispatch("create_user", this.auth_form);
       } else {
