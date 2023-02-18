@@ -5,4 +5,11 @@ module.exports = {
   configureWebpack: {
     plugins: [new MiniCssExtractPlugin()],
   },
+  pages: {
+    index: {
+      // entry for the page
+      entry: "src/main.js",
+      title: "Focustime (Vue)",
+    },
+  },
 };
