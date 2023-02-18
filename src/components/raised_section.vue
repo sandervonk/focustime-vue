@@ -89,6 +89,11 @@ export default {
   transition: transform 0.5s ease;
   z-index: 1;
 }
+@media (max-height: 500px) {
+  .raised_section {
+    max-height: calc(100vh - 80px);
+  }
+}
 .raised_section:not(.raised) {
   transform: translateX(-50%) translateY(calc(100% - 25px));
 }
@@ -185,5 +190,6 @@ button.large_action.stuck {
 
 .bottomgap button.large_action.stuck {
   bottom: calc(var(--pad-button) + 20px);
+  box-shadow: 0 0 30px 10px var(--secondary-bg);
 }
 </style>

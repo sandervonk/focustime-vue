@@ -107,3 +107,42 @@ router-link {
   font-weight: bold;
 }
 </style>
+
+<style>
+/* styles for large screens */
+@media (min-width: 800px) and (min-height: 800px) {
+  main.login {
+    width: 600px;
+  }
+  main.login .handle-container {
+    display: none;
+  }
+  main.login main.raised_section {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: fit-content !important;
+    max-height: unset;
+    flex-basis: unset;
+    min-height: unset;
+    display: block;
+    max-height: unset;
+  }
+  main.login main.raised_section .section_content {
+    border-radius: 25px !important;
+    padding-bottom: 30px !important;
+    flex-grow: 0;
+    height: unset !important;
+    max-height: unset;
+    overflow-y: unset;
+    box-sizing: border-box;
+  }
+  main.login button.large_action {
+    position: unset;
+    transform: none;
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+</style>

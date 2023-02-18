@@ -71,6 +71,7 @@ nav a.router-link-exact-active {
   --primary-bg-transparent: #2f281d33;
   --primary-bg-half: #2f281d80;
   --secondary-bg: #fff;
+  --secondary-bg-half: #ffffff80;
   --on-secondary: #333;
   --on-primary-bg: #fff;
   --on-secondary-bg: #2e271c;

@@ -13,6 +13,7 @@
       ref="daily_tasks"
       style="margin-bottom: calc(80px - 20px)"
       height="unset"
+      id="daily_tasks"
       gap_bottom
     >
       <div id="daily-title" class="header-large">Daily Tasks</div>
@@ -288,6 +289,43 @@ html {
   ::-webkit-scrollbar-corner {
     opacity: 0;
     background: transparent;
+  }
+}
+</style>
+<style>
+/* style for large devices */
+@media (min-width: 720px) {
+  #nav_bar {
+    margin-left: 0;
+    border-top-left-radius: 0;
+  }
+  #daily_tasks {
+    margin-bottom: 0 !important;
+    left: none;
+    right: 0;
+  }
+  #daily_tasks > .section_content {
+    padding-bottom: 110px !important;
+    border-top-right-radius: 0px !important;
+  }
+  #daily_tasks,
+  #daily_tasks > .section_content button.stuck {
+    left: unset;
+  }
+  #daily_tasks > .section_content button.stuck {
+    right: 30px;
+    bottom: 30px;
+    transform: none;
+    position: absolute;
+  }
+  #daily_tasks {
+    transform: translateY(calc(100% - 25px));
+  }
+  #daily_tasks:hover {
+    transform: translateY(calc(100% - 35px));
+  }
+  #daily_tasks.raised {
+    transform: none;
   }
 }
 </style>
