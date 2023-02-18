@@ -95,8 +95,7 @@ export default {
   },
   // load tasks from firebase
   created() {
-    // commit get_tasks
-    this.$store.dispatch("get_tasks");
+    this.$store.dispatch("get_doc");
   },
   computed: {
     tasks() {
@@ -233,6 +232,7 @@ html {
   flex-flow: row wrap;
   width: calc(100% + (2 * 5px));
   margin: 20px -5px;
+  margin-bottom: -5px;
 }
 .data-card {
   background-color: var(--accent-2);

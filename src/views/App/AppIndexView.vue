@@ -1,10 +1,7 @@
 <template>
   <main class="app">
     <div id="home-head-row">
-      <div id="home-text" class="header-text">
-        Hi&nbsp;<span id="name">{{ user_name }}</span
-        >!
-      </div>
+      <div id="home-text" class="header-text">{{ greeting }}</div>
       <div id="home-logout" @click="logoutPrompt">
         <object
           title="Profile Picture"
@@ -48,11 +45,20 @@ export default {
   // get tasks array from parent through $parent
   computed: {
     tasks() {
-      console.log("AppIndexView got Tasks:", this.$store.state.tasks);
-      return this.$store.state.tasks;
+      // sort tasks by date. in order of date being set to: pinned, priority, no date, dates by time
+      let tasks = this.$store.state.tasks;
+      return tasks;
     },
-    user_name() {
-      return this.$store.state.name ? this.$store.state.name.split(" ")[0] : "User";
+    greeting() {
+      if (!this.$store.state.user) return "";
+      let name = this.$store.state.name ? this.$store.state.name.split(" ")[0] : null,
+        greetings = ["Hello, ", "Hi ", "Hey ", "Welcome back "],
+        noname_greetings = ["Hello", "Hi there", "Hey", "Welcome back", "Hey there"];
+      // make the previous shorter
+      if (name && Math.random() < 0.5) {
+        return greetings[Math.floor(Math.random() * greetings.length)] + name + "!";
+      }
+      return noname_greetings[Math.floor(Math.random() * noname_greetings.length)] + "!";
     },
   },
   methods: {
@@ -61,6 +67,15 @@ export default {
         ["removePopup()", "Cancel", "secondary-action fullborder"],
         ["removePopup()", "Yes", "primary-action click-to-logout"],
       ]);
+    },
+  },
+  watch: {
+    // when store tasks change, update tasks
+    $store: {
+      handler() {
+        // force an update to the computed property
+      },
+      deep: true,
     },
   },
 };

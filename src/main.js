@@ -45,6 +45,3 @@ window.dev_sign_out = dev_sign_out;
 window.$(document.body).on("click", ".click-to-logout", function () {
   store.dispatch("logout");
 });
-
-//use store get_tasks action to get tasks from firebase
-store.dispatch("get_tasks");

@@ -24,22 +24,21 @@ const auth = getAuth(app);
 import store from "../store";
 
 // enable database persistence and ensure user stays logged in
-// keep user state synced with firebase
-
+// keep user state synced with firebase auth
 auth.onAuthStateChanged((user) => {
   if (user) {
     store.commit("SET_USER", user);
     console.log("User is logged in: ", user);
+    // add onSnapshot listener for changes to user doc in firestore, then use "SET_DOC" to update state
+    onSnapshot(doc(db, "users", user.uid), (doc) => {
+      console.warn("onSnapshot fired");
+      store.commit("SET_DOC", doc.data());
+    });
   } else {
     store.commit("CLEAR_USER");
     console.log("User is logged out");
+    // clear onSnapshot listener
   }
 });
-// add lisener for changes to user doc in firestore
-// onSnapshot(doc(db, "users", store.state.user.uid), (doc) => {
-//   console.log("Firebase set tasks: ", doc.data());
-//   // update user data in store
-//   store.commit("SET_TASKS", doc.data().name);
-// });
 
 export { auth, db };

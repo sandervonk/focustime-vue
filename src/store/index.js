@@ -2,14 +2,21 @@ import { createStore } from "vuex";
 import { auth, db } from "../firebase";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { ErrorToast, SuccessToast, cleanError } from "@/util/util";
-import { getDoc, doc, collection } from "firebase/firestore";
+import { getDoc, doc, collection, updateDoc } from "firebase/firestore";
 // import router functions
 import router from "../router";
 
 export default createStore({
   state: {
     user: null,
+    name: null,
+    settings: {
+      dark_mode: false,
+      do_hide_complete: false,
+    },
     tasks: [],
+    archive: [],
+    classes: [],
   },
   getters: {},
   mutations: {
@@ -29,16 +36,60 @@ export default createStore({
     SET_NAME(state, name) {
       state.name = name;
     },
+    SET_CLASSES(state, classes) {
+      state.classes = classes;
+    },
+    SET_DOC(state, doc) {
+      state.name = doc.name;
+      state.tasks = doc.tasks;
+      state.archive = doc.archive;
+      state.classes = doc.classes;
+      state.settings = doc.settings;
+    },
   },
   actions: {
-    async get_tasks({ commit }) {
-      const tasks = [];
+    async completeTask({ commit }, task) {
+      const tasks = this.state.tasks;
+      const index = tasks.indexOf(task);
+      tasks[index].is_completed = true;
+      commit("SET_TASKS", tasks);
+      await this.dispatch("update_doc");
+    },
+    async archiveTask({ commit }, task) {
+      // remove task from tasks and add to archive
+      const tasks = this.state.tasks;
+      const index = tasks.indexOf(task);
+      tasks.splice(index, 1);
+
+      const archive = this.state.archive;
+      archive.push(task);
+
+      commit("SET_TASKS", tasks);
+      await this.dispatch("update_doc");
+    },
+    async update_doc() {
+      // wait for user to be set
+      while (!this.state.user) {
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      }
+      // update doc using stored user uid
+      await updateDoc(doc(db, "users", this.state.user.uid), {
+        name: this.state.name,
+        tasks: this.state.tasks,
+        archive: this.state.archive,
+        classes: this.state.classes,
+        settings: this.state.settings,
+      });
+    },
+    async get_doc({ commit }) {
+      // wait for user to be set
+      while (!this.state.user) {
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      }
       // get doc snapshot using stored user uid
-      const docSnap = await getDoc(doc(collection(db, "users"), this.state.user.uid));
-      const tasksData = docSnap.data().tasks;
-      // push tasks to tasks array
-      commit("SET_TASKS", tasksData);
-      commit("SET_NAME", docSnap.data().name);
+      let docSnap = await getDoc(doc(collection(db, "users"), this.state.user.uid));
+      let docData = docSnap.data();
+      commit("SET_DOC", docData);
     },
     async login({ commit }, user) {
       commit("SET_USER", user);
@@ -50,6 +101,7 @@ export default createStore({
       }
       commit("CLEAR_USER");
     },
+
     async sign_in({ commit }, attempted_details) {
       try {
         const { user } = await signInWithEmailAndPassword(

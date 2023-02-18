@@ -24,7 +24,7 @@
   <hr />
   <div class="task-card-info">
     <div class="task-card-title" :title="task.title">{{ title_clean }}</div>
-    <div class="task-card-tag">{{ task.tag }}</div>
+    <div class="task-card-tag">{{ get_tag }}</div>
   </div>
 </template>
 
@@ -37,6 +37,9 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {};
+  },
   computed: {
     title_clean() {
       // remove any html tags from the title
@@ -44,6 +47,12 @@ export default {
     },
     task_date() {
       return this.task.date && this.task.date != "priority" ? this.task.date : "No Goal Date";
+    },
+    get_tag() {
+      // get tag text from classes array (store.classes), return the value if it exists, the tag if not
+      let tag = this.task.tag,
+        classes = this.$parent.$store.state.classes;
+      return classes[tag] ? classes[tag] : tag;
     },
   },
 };

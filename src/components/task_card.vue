@@ -1,7 +1,7 @@
 <template>
   <div
     class="task-card"
-    :class="{ editing: is_editing, pinned: is_pinned }"
+    :class="{ editing: is_editing, pinned: is_pinned, completed: is_completed }"
     v-touch:swipe="swipeHandler"
   >
     <!-- swipe pin -->
@@ -48,7 +48,7 @@
     </div>
     <!-- swipe actions -->
     <div class="task-card-swipe">
-      <div class="task-card-swipe-done" v-if="!task.is_completed">
+      <div class="task-card-swipe-done" v-if="!is_completed" @click="handleComplete">
         <object
           class="task-card-swipe-icon"
           aria-label="Task Icon"
@@ -58,7 +58,7 @@
           <img alt="icon" :src="require('../assets/icon/tasks/done-icon.png')" />
         </object>
       </div>
-      <div class="task-card-swipe-archive">
+      <div class="task-card-swipe-archive" @click="handleArchive">
         <object
           class="task-card-swipe-icon"
           aria-label="Task Icon"
@@ -74,12 +74,13 @@
 
 <script>
 // import libaries to use to archive this task or mark it as complete in firebase firestore
-import { db, getClassJSON } from "../firebase/";
-import { ref, computed } from "vue";
+
+import { Toast } from "@/util/util";
+// import jquery
 // import fallback_svg from "./fallback_svg";
 import task_info_card from "./task_info_card";
 String.prototype.hashCode = function () {
-  var hash = 0,
+  let hash = 0,
     i,
     chr;
   if (this.length === 0) return hash;
@@ -101,7 +102,7 @@ export default {
       default() {
         return {
           date: "",
-          init_completed: false,
+          is_completed: false,
           tag: "other",
           time: 30,
           title: "Task Title",
@@ -116,7 +117,7 @@ export default {
   },
   data() {
     return {
-      is_completed: this.task.init_completed,
+      is_completed: this.task.is_completed,
       is_editing: false,
       is_pinned: false,
     };
@@ -126,6 +127,7 @@ export default {
       if (direction === "left") {
         this.is_editing = true;
         this.is_pinning = false;
+        this.$emit("edit", this.task_id);
       } else if (direction === "right") {
         if (this.is_editing) {
           this.is_editing = false;
@@ -142,32 +144,29 @@ export default {
     togglePinned() {
       this.is_pinned = !this.is_pinned;
     },
-    // handleComplete() {
-    //   this.is_completed = !this.is_completed;
-    //   userDoc().update({
-    //     tasks: db.FieldValue.arrayRemove(this.task),
-    //   });
-    //   userDoc().update({
-    //     tasks: db.FieldValue.arrayUnion({
-    //       ...this.task,
-    //       is_completed: this.is_completed,
-    //     }),
-    //   });
-    // },
-    // handleArchive() {
-    //   userDoc().update({
-    //     tasks: db.FieldValue.arrayRemove(this.task),
-    //     archive: db.FieldValue.arrayUnion(this.task),
-    //   });
-    // },
+    handleComplete() {
+      this.is_completed = !this.is_completed;
+      this.$store.dispatch("completeTask", this.task);
+      // toast
+      this.editing = false;
+      new Toast(
+        "Task marked as done!",
+        "default",
+        1000,
+        require("@/assets/icon/toast/success-icon.svg")
+      );
+    },
+    handleArchive() {
+      this.$el.classList.add("swipe-out-archive");
+      setTimeout(() => {
+        this.$store.dispatch("archiveTask", this.task);
+        this.$el.remove();
+      }, 500);
+      // toast
+      new Toast("Task archived!", "default", 1000, require("@/assets/icon/toast/archive-icon.svg"));
+    },
   },
 };
-
-//  for swipe handling
-
-// import required libraries for v-touch
-
-// listen for swipes across this .task-card element and toggle is_editing if it is to the left, is_pinned if it is to the right
 </script>
 
 <style>
@@ -224,6 +223,10 @@ iframe.task-card-content,
 }
 .task-card.editing > .task-card-content {
   margin-left: -150px;
+  user-select: none;
+}
+.task-card.editing.completed > .task-card-content {
+  margin-left: -75px;
 }
 .task-card .task-card-title {
   font-family: "Montserrat", sans-serif;
@@ -394,5 +397,13 @@ iframe.task-card-content,
 .task-card:not(.pinned) .task-card-pin-icon.alt-icon,
 .task-card.pinned .task-card-pin-icon:not(.alt-icon) {
   display: none;
+}
+.task-card.swipe-out-archive {
+  margin-top: -55px !important;
+  margin-bottom: -55px !important;
+  opacity: 0 !important;
+  transform: translateX(-100%) scale(0) !important;
+  transform-origin: center left;
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out, margin 0.5s ease-out !important;
 }
 </style>
