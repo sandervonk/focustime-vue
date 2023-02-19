@@ -1,9 +1,22 @@
 <template>
   <div class="input-pair">
-    <object :title="role_caps + ' Input'" class="input-icon" :alt="role_caps + ' field icon'" :data="require('../assets/icon/general/' + role + '.svg')" type="image/svg+xml">
+    <object
+      :title="role_caps + ' Input'"
+      class="input-icon"
+      :alt="role_caps + ' field icon'"
+      :data="require('../assets/icon/general/' + role + '.svg')"
+      type="image/svg+xml"
+    >
       <img alt="icon" :src="require('../assets/icon/general/' + role + '.png')" />
     </object>
-    <input :type="type" :name="role" :placeholder="role_caps" @input="handleInput" :value="modelValue" />
+    <input
+      :type="type"
+      :name="role"
+      :autocomplete="'current-' + role"
+      :placeholder="role_caps"
+      @input="handleInput"
+      :value="modelValue"
+    />
   </div>
 </template>
 

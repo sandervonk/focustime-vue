@@ -1,24 +1,28 @@
 <template>
   <main class="login">
     <raised_section :title="is_creating ? 'Create your account' : 'Sign In'">
-      <input_pair role="name" v-if="is_creating" v-model="auth_form.name" />
-      <input_pair role="email" type="email" v-model="auth_form.email" />
-      <input_pair role="password" type="password" v-model="auth_form.password" />
-      <div id="login-checkboxes" v-if="is_creating">
-        <checkbox_pair role="age" v-model="auth_form.age">I'm at least 13 years old</checkbox_pair>
-        <checkbox_pair role="terms" v-model="auth_form.terms"
-          >I agree to the&nbsp;<router-link to="/terms"
-            >terms and conditions</router-link
-          ></checkbox_pair
-        >
-      </div>
-      <div class="flex-spacer"></div>
-      <a class="toggletext" @click="is_creating = !is_creating">{{
-        is_creating ? "I already have an account" : "Don't have an account?"
-      }}</a>
-      <button class="large_action stuck" @click="submit_auth" :class="{ disabled: disabled }">
-        {{ is_creating ? "Sign Up" : "Sign In" }}
-      </button>
+      <form id="auth-form-el" @submit.prevent="submit_auth">
+        <input_pair role="name" v-if="is_creating" v-model="auth_form.name" />
+        <input_pair role="email" type="email" v-model="auth_form.email" />
+        <input_pair role="password" type="password" v-model="auth_form.password" />
+        <div id="login-checkboxes" v-if="is_creating">
+          <checkbox_pair role="age" v-model="auth_form.age"
+            >I'm at least 13 years old</checkbox_pair
+          >
+          <checkbox_pair role="terms" v-model="auth_form.terms"
+            >I agree to the&nbsp;<router-link to="/terms"
+              >terms and conditions</router-link
+            ></checkbox_pair
+          >
+        </div>
+        <div class="flex-spacer"></div>
+        <a class="toggletext" @click="is_creating = !is_creating">{{
+          is_creating ? "I already have an account" : "Don't have an account?"
+        }}</a>
+        <button class="large_action stuck" @click="submit_auth" :class="{ disabled: disabled }">
+          {{ is_creating ? "Sign Up" : "Sign In" }}
+        </button>
+      </form>
     </raised_section>
   </main>
 </template>
@@ -125,6 +129,9 @@ router-link {
 </style>
 
 <style>
+#auth-form-el {
+  text-align: center;
+}
 /* styles for large screens */
 @media (min-width: 800px) and (min-height: 800px) {
   main.login {

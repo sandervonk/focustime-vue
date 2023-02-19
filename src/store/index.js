@@ -30,7 +30,7 @@ export default createStore({
       state.user = null;
       if (
         (!router.currentRoute.meta || router.currentRoute.meta.requiresAuth) &&
-        !router.currentRoute.path == "/onboarding"
+        !(router.currentRoute.path == "/onboarding")
       ) {
         router.push({ path: "/auth" });
       }
