@@ -294,9 +294,10 @@ html {
 </style>
 <style>
 /* style for large devices */
-@media (min-width: 720px) {
+@media (min-width: 905px) {
   #nav_bar {
     margin-left: 0;
+    width: 360px;
     border-top-left-radius: 0;
   }
   #daily_tasks {

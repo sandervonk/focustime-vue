@@ -28,7 +28,7 @@ import store from "../store";
 auth.onAuthStateChanged((user) => {
   if (user) {
     store.commit("SET_USER", user);
-    console.log("User is logged in: ", user);
+    console.warn("user is logged in: " + user.uid);
     // add onSnapshot listener for changes to user doc in firestore, then use "SET_DOC" to update state
     onSnapshot(doc(db, "users", user.uid), (doc) => {
       console.warn("onSnapshot fired");
@@ -36,8 +36,7 @@ auth.onAuthStateChanged((user) => {
     });
   } else {
     store.commit("CLEAR_USER");
-    console.log("User is logged out");
-    // clear onSnapshot listener
+    console.warn("user is logged out");
   }
 });
 

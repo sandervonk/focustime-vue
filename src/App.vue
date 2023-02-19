@@ -1,8 +1,4 @@
 <template>
-  <!-- <nav>
-    <router-link to="/auth">Auth</router-link> |
-    <router-link to="/">App</router-link>
-  </nav> -->
   <router-view />
 </template>
 
@@ -164,5 +160,11 @@ button.disabled {
 }
 .flex-nowrap {
   flex-wrap: nowrap;
+}
+.notransition {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
 }
 </style>

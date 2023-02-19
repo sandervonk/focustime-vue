@@ -58,9 +58,7 @@ export default {
         ) {
           let warnings = [];
           if (!this.auth_form.terms) warnings.push("agree to the terms and conditions");
-
           if (!this.auth_form.age) warnings.push("confirm your age");
-
           new WarningToast("Please " + warnings.join(" and ") + " to create an account", 10000);
         } else {
           new WarningToast(

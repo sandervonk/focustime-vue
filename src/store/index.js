@@ -21,14 +21,19 @@ export default createStore({
   getters: {},
   mutations: {
     SET_USER(state, user) {
-      if ((router.currentRoute.path == "/auth" || !router.currentRoute.path) && !state.user) {
+      if ((router.currentRoute.path == "/auth" || !router.currentRoute.path) && state.user) {
         router.push({ path: "/" });
       }
       state.user = user;
     },
     CLEAR_USER(state) {
       state.user = null;
-      router.push({ path: "/auth" });
+      if (
+        (!router.currentRoute.meta || router.currentRoute.meta.requiresAuth) &&
+        !router.currentRoute.path == "/onboarding"
+      ) {
+        router.push({ path: "/auth" });
+      }
     },
     SET_TASKS(state, tasks) {
       state.tasks = tasks;

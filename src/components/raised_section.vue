@@ -123,6 +123,8 @@ export default {
   align-items: stretch;
   justify-content: flex-start;
   pointer-events: all;
+  transition: border-radius 0.5s ease, height 0.5s ease, min-height 0.5s ease, padding 0.5s ease,
+    transform 0.5s ease;
 }
 .raised_section > .section_content.bottomgap {
   padding-bottom: 50px;

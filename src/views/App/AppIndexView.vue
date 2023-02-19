@@ -57,7 +57,7 @@ export default {
       if (!this.$store.state.user) return "";
       let name = this.$store.state.name ? this.$store.state.name.split(" ")[0] : null,
         greetings = ["Hello, ", "Hi ", "Hey ", "Welcome back "],
-        noname_greetings = ["Hello", "Hi there", "Hey", "Welcome back", "Hey there"];
+        noname_greetings = ["Hello", "Hi there", "Welcome back", "Hey there"];
       // make the previous shorter
       if (name && Math.random() < 0.5) {
         return greetings[Math.floor(Math.random() * greetings.length)] + name + "!";
