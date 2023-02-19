@@ -179,7 +179,7 @@ export default {
           date: "",
           tag: "",
         };
-        // this.$router.push({ path: "/" });
+        this.$router.push({ path: "/" });
       } else {
         new WarningToast("Please fill out all fields", 1000);
       }
