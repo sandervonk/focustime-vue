@@ -1,19 +1,19 @@
 {
   "name": "focustime-vue",
-  "homepage": "https://sander.vonk.one/focustime-vue/",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "predeploy": "npm run build"
   },
   "dependencies": {
     "core-js": "^3.8.3",
     "firebase": "^9.17.1",
     "jquery": "^3.6.3",
+    "register-service-worker": "^1.7.2",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "vue3-touch-events": "^4.1.0",
@@ -24,6 +24,7 @@
     "@babel/eslint-parser": "^7.12.16",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-plugin-pwa": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
@@ -31,5 +32,6 @@
     "eslint-plugin-vue": "^8.0.3",
     "gh-pages": "^5.0.0",
     "mini-css-extract-plugin": "^2.5.3"
-  }
+  },
+  "homepage": "https://sander.vonk.one/focustime-vue/"
 }

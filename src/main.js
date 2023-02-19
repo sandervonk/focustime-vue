@@ -50,6 +50,7 @@ router.afterEach((to) => {
 
 window.$ = require("jquery");
 import { Popup } from "@/util/util";
+import './registerServiceWorker'
 window.logoutPrompt = function () {
   new Popup(["Sign Out", "Are you sure you want to sign out?"], "default", 10000, "", [
     ["removePopup()", "Cancel", "secondary-action fullborder"],
