@@ -22,35 +22,35 @@ module.exports = {
       theme_color: "#d4edbf",
       screenshots: [
         {
-          src: "/og/screenshot/onboard.jpeg",
+          src: "./og/screenshot/onboard.jpeg",
           type: "image/jpeg",
           sizes: "390x844",
           platform: "narrow",
           label: "Onboarding - Mobile",
         },
         {
-          src: "/og/screenshot/app-home.jpeg",
+          src: "./og/screenshot/app-home.jpeg",
           type: "image/jpeg",
           sizes: "390x844",
           platform: "narrow",
           label: "FocusTime Dashboard - Mobile",
         },
         {
-          src: "/og/screenshot/app-session.jpeg",
+          src: "./og/screenshot/app-session.jpeg",
           type: "image/jpeg",
           sizes: "390x844",
           platform: "narrow",
           label: "Start a Focus Session - Mobile",
         },
         {
-          src: "/og/screenshot/signup.jpeg",
+          src: "./og/screenshot/signup.jpeg",
           type: "image/jpeg",
           sizes: "390x844",
           platform: "narrow",
           label: "Sign Up for FocusTime - Mobile",
         },
         {
-          src: "/og/screenshot/app-create.jpeg",
+          src: "./og/screenshot/app-create.jpeg",
           type: "image/jpeg",
           sizes: "390x844",
           platform: "narrow",
@@ -133,35 +133,35 @@ module.exports = {
 //   "description": "Improve your productivity by scheduling out your time into more meaningful 'focus sessions' with FocusTime.",
 //   "screenshots": [
 //     {
-//       "src": "/og/screenshot/onboard.jpeg",
+//       "src": "./og/screenshot/onboard.jpeg",
 //       "type": "image/jpeg",
 //       "sizes": "390x844",
 //       "platform": "narrow",
 //       "label": "Onboarding - Mobile"
 //     },
 //     {
-//       "src": "/og/screenshot/app-home.jpeg",
+//       "src": "./og/screenshot/app-home.jpeg",
 //       "type": "image/jpeg",
 //       "sizes": "390x844",
 //       "platform": "narrow",
 //       "label": "FocusTime Dashboard - Mobile"
 //     },
 //     {
-//       "src": "/og/screenshot/app-session.jpeg",
+//       "src": "./og/screenshot/app-session.jpeg",
 //       "type": "image/jpeg",
 //       "sizes": "390x844",
 //       "platform": "narrow",
 //       "label": "Start a Focus Session - Mobile"
 //     },
 //     {
-//       "src": "/og/screenshot/signup.jpeg",
+//       "src": "./og/screenshot/signup.jpeg",
 //       "type": "image/jpeg",
 //       "sizes": "390x844",
 //       "platform": "narrow",
 //       "label": "Sign Up for FocusTime - Mobile"
 //     },
 //     {
-//       "src": "/og/screenshot/app-create.jpeg",
+//       "src": "./og/screenshot/app-create.jpeg",
 //       "type": "image/jpeg",
 //       "sizes": "390x844",
 //       "platform": "narrow",
