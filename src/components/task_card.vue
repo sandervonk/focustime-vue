@@ -139,7 +139,6 @@ export default {
     },
     toggleEditing() {
       this.is_editing = !this.is_editing;
-      console.log("editing: " + this.is_editing);
     },
     togglePinned() {
       this.is_pinned = !this.is_pinned;

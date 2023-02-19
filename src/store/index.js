@@ -53,6 +53,12 @@ export default createStore({
     },
   },
   actions: {
+    async addTask({ commit }, task) {
+      const tasks = this.state.tasks;
+      tasks.push(task);
+      commit("SET_TASKS", tasks);
+      await this.dispatch("update_doc");
+    },
     async completeTask({ commit }, task) {
       const tasks = this.state.tasks;
       const index = tasks.indexOf(task);

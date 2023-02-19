@@ -155,6 +155,7 @@ router-link {
     min-height: unset;
     display: block;
     max-height: unset;
+    max-width: 400px;
   }
   main.login main.raised_section .section_content {
     border-radius: 25px !important;
