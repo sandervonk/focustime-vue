@@ -86,14 +86,7 @@ export default {
   data() {
     return {};
   },
-  methods: {
-    logoutPrompt() {
-      new Popup(["Sign Out", "Are you sure you want to sign out?"], "default", 10000, "", [
-        ["removePopup()", "Cancel", "secondary-action fullborder"],
-        ["removePopup()", "Yes", "primary-action click-to-logout"],
-      ]);
-    },
-  },
+
   // load tasks from firebase
   created() {
     this.$store.dispatch("get_doc");
@@ -191,10 +184,9 @@ div[data-role="tasks-list"] {
 @media (min-width: 600px) {
   nav {
     width: 500px;
-    /* left: 50%;
-    transform: translateX(-50%); */
     margin: 0 auto;
     border-radius: 20px 20px 0 0;
+    transition: width 0.5s ease, border-radius 0.5s ease;
   }
 }
 @media (min-width: 760px) {

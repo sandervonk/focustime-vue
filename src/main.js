@@ -44,11 +44,27 @@ router.afterEach((to) => {
   if (to.meta && to.meta.page_title) {
     document.title = "FocusTime  | " + to.meta.page_title;
   }
+
   removePopup();
 });
 
 window.$ = require("jquery");
+import { Popup } from "@/util/util";
+window.logoutPrompt = function () {
+  new Popup(["Sign Out", "Are you sure you want to sign out?"], "default", 10000, "", [
+    ["removePopup()", "Cancel", "secondary-action fullborder"],
+    ["removePopup()", "Yes", "primary-action click-to-logout"],
+  ]);
+};
 // if a element is clicked and it has a click-to-logout class, then logout
 window.$(document.body).on("click", ".click-to-logout", function () {
   store.dispatch("logout");
 });
+
+// expose update_doc function to window
+window.update_doc = function () {
+  store.dispatch("update_doc");
+};
+window.fetch_doc = function () {
+  store.dispatch("get_doc");
+};

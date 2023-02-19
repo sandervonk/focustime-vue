@@ -21,10 +21,10 @@ export default createStore({
   getters: {},
   mutations: {
     SET_USER(state, user) {
+      state.user = user;
       if ((router.currentRoute.path == "/auth" || !router.currentRoute.path) && state.user) {
         router.push({ path: "/" });
       }
-      state.user = user;
     },
     CLEAR_USER(state) {
       state.user = null;
@@ -54,10 +54,11 @@ export default createStore({
   },
   actions: {
     async addTask({ commit }, task) {
-      const tasks = this.state.tasks;
+      let tasks = this.state.tasks;
       tasks.push(task);
       commit("SET_TASKS", tasks);
       await this.dispatch("update_doc");
+      new SuccessToast("Task created!", 2000);
     },
     async completeTask({ commit }, task) {
       const tasks = this.state.tasks;
@@ -84,13 +85,17 @@ export default createStore({
         await new Promise((resolve) => setTimeout(resolve, 100));
       }
       // update doc using stored user uid
-      await updateDoc(doc(db, "users", this.state.user.uid), {
-        name: this.state.name,
-        tasks: this.state.tasks,
-        archive: this.state.archive,
-        classes: this.state.classes,
-        settings: this.state.settings,
-      });
+      await updateDoc(
+        doc(db, "users", this.state.user.uid),
+        {
+          name: this.state.name,
+          tasks: this.state.tasks,
+          archive: this.state.archive,
+          classes: this.state.classes,
+          settings: this.state.settings,
+        },
+        { merge: true }
+      );
     },
     async get_doc({ commit }) {
       // wait for user to be set

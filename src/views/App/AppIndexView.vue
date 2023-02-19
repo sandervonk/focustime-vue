@@ -67,10 +67,7 @@ export default {
   },
   methods: {
     logoutPrompt() {
-      new Popup(["Sign Out", "Are you sure you want to sign out?"], "default", 10000, "", [
-        ["removePopup()", "Cancel", "secondary-action fullborder"],
-        ["removePopup()", "Yes", "primary-action click-to-logout"],
-      ]);
+      window.logoutPrompt();
     },
   },
   watch: {

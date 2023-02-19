@@ -139,6 +139,9 @@ button.disabled {
   align-items: center;
   justify-content: center;
 }
+.flex-grow {
+  flex-grow: 1;
+}
 .header-text {
   font-size: 26px;
   font-family: "Montserrat", sans-serif;
