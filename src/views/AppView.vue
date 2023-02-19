@@ -74,7 +74,6 @@
 </template>
 
 <script>
-import { Popup } from "@/util/util";
 import nav_bar from "@/components/nav_bar.vue";
 import raised_section from "@/components/raised_section.vue";
 export default {

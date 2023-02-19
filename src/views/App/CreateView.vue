@@ -170,7 +170,6 @@ export default {
   methods: {
     createTask() {
       let task = this.final_vals;
-      console.log(task);
       if (task) {
         this.$store.dispatch("addTask", task);
         this.newtask = {

@@ -58,7 +58,7 @@ export default {
   watch: {
     // watch for prop changes as defined by parent, then update local data
     task: {
-      handler: function (newVal, oldVal) {
+      handler() {
         // update all local data
         this.title_clean;
         this.task_date;
