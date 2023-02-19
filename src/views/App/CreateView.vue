@@ -208,10 +208,9 @@ main {
 }
 #add-task-form {
   display: flex;
-  align-content: start;
+  align-content: flex-start;
   justify-content: center;
   width: 100%;
-  /* max-width: 600px; */
   margin: 0 auto;
   flex-flow: row wrap;
   flex-shrink: 0;
