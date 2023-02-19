@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkfocustime_vue"]=self["webpackChunkfocustime_vue"]||[]).push([[337],{1337:function(u,n,e){e.r(n),e.d(n,{default:function(){return a}});var t=e(6252);const r=(0,t._)("h1",null,"404",-1),c=(0,t._)("h2",null,"Page Not Found",-1);function l(u,n,e,l,o,s){return(0,t.wg)(),(0,t.iD)(t.HY,null,[r,c],64)}var o={},s=e(3744);const f=(0,s.Z)(o,[["render",l]]);var a=f}}]);
+//# sourceMappingURL=337.58f09ba4.js.map
