@@ -68,6 +68,7 @@
                 id="date-pin-icon"
                 v-if="!newtask.date || newtask.date == 'pinned'"
                 title="No date provided, task will be pinned"
+                @click="newtask.date = new Date().toISOString().split('T')[0]"
               >
                 <object
                   id="pin-icon"
