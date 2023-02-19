@@ -131,6 +131,10 @@ router-link {
 <style>
 #auth-form-el {
   text-align: center;
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+  flex-grow: 1;
 }
 /* styles for large screens */
 @media (min-width: 800px) and (min-height: 800px) {
@@ -160,6 +164,7 @@ router-link {
     max-height: unset;
     overflow-y: unset;
     box-sizing: border-box;
+    min-height: 500px;
   }
   main.login button.large_action {
     position: unset;
