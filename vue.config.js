@@ -2,6 +2,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   publicPath: process.env.NODE_ENV === "production" ? "/focustime-vue/" : "/",
+  // publicPath: process.env.NODE_ENV === "production" ? "/" : "/",
   configureWebpack: {
     plugins: [new MiniCssExtractPlugin()],
   },
@@ -16,7 +17,6 @@ module.exports = {
     manifestOptions: {
       name: "FocusTime",
       short_name: "FocusTime",
-      start_url: "/focustime-vue/",
       display: "standalone",
       background_color: "#d4edbf",
       theme_color: "#d4edbf",
