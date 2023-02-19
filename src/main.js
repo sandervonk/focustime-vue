@@ -44,13 +44,16 @@ router.afterEach((to) => {
   if (to.meta && to.meta.page_title) {
     document.title = "FocusTime  | " + to.meta.page_title;
   }
+  if (to.meta && to.meta.theme_color) {
+    document.querySelector("meta[name=theme-color]").setAttribute("content", to.meta.theme_color);
+  }
 
   removePopup();
 });
 
 window.$ = require("jquery");
 import { Popup } from "@/util/util";
-import './registerServiceWorker'
+import "./registerServiceWorker";
 window.logoutPrompt = function () {
   new Popup(["Sign Out", "Are you sure you want to sign out?"], "default", 10000, "", [
     ["removePopup()", "Cancel", "secondary-action fullborder"],

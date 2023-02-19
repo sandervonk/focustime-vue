@@ -17,13 +17,14 @@ const routes = [
         meta: {
           requiresAuth: true,
           page_title: "Dashboard",
+          theme_color: "#faf4f2",
         },
       },
       {
         path: "create",
         name: "CreateView",
         component: () => import("../views/App/CreateView.vue"),
-        meta: { requiresAuth: true, page_title: "Create Task" },
+        meta: { requiresAuth: true, page_title: "Create Task", theme_color: "#faf4f2" },
       },
       {
         path: "session",
@@ -32,6 +33,7 @@ const routes = [
         meta: {
           requiresAuth: true,
           page_title: "Focus Session",
+          theme_color: "#faf4f2",
         },
       },
     ],
@@ -40,7 +42,7 @@ const routes = [
     path: "/auth",
     name: "AuthView",
     component: () => import("../views/AuthView.vue"),
-    meta: { requiresAuth: false, page_title: "Sign In" },
+    meta: { requiresAuth: false, page_title: "Sign In", theme_color: "#d4edbf" },
   },
   {
     path: "/terms",
@@ -52,13 +54,13 @@ const routes = [
     path: "/onboarding",
     name: "OnboardingView",
     component: () => import("../views/OnboardingView.vue"),
-    meta: { requiresAuth: false, page_title: "Get Started" },
+    meta: { requiresAuth: false, page_title: "Get Started", theme_color: "#d4edbf" },
   },
   {
     path: "/:catchAll(.*)*",
     name: "PageNotFound",
     component: () => import("../views/PageNotFound.vue"),
-    meta: { requiresAuth: false, page_title: "404 - Page Not Found" },
+    meta: { requiresAuth: false, page_title: "404 - Page Not Found", theme_color: "#d4edbf" },
   },
 ];
 

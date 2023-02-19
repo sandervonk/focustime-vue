@@ -31,7 +31,6 @@
 <script>
 import task_card from "@/components/task_card.vue";
 import fade_bars from "@/components/fade_bars.vue";
-import { Popup } from "@/util/util";
 export default {
   name: "AppView",
   components: {
