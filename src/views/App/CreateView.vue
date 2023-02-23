@@ -67,8 +67,28 @@
               <div
                 id="date-pin-icon"
                 v-if="!newtask.date || newtask.date == 'pinned'"
+                class="alt"
                 title="No date provided, task will be pinned"
-                @click="newtask.date = new Date().toISOString().split('T')[0]"
+                @click="
+                  newtask.date = new Date(new Date().setDate(new Date().getDate() + 1))
+                    .toISOString()
+                    .split('T')[0]
+                "
+              >
+                <object
+                  id="pin-icon"
+                  aria-label="Task Icon"
+                  :data="require('@/assets/icon/tasks/pin-icon-alt-info.svg')"
+                  type="image/png"
+                >
+                  <img alt="icon" :src="require('@/assets/icon/tasks/pin-icon-alt-info.png')" />
+                </object>
+              </div>
+              <div
+                id="date-pin-icon"
+                v-else
+                title="Date provided, task will not be pinned"
+                @click="newtask.date = ''"
               >
                 <object
                   id="pin-icon"
@@ -370,6 +390,9 @@ input[type="submit"].disabled {
   height: 40px;
   width: 40px;
   margin-left: 10px;
+}
+#date-pin-icon.alt {
+  background-color: var(--task-info-3);
 }
 #date-grouping > input {
   margin-top: 0px;

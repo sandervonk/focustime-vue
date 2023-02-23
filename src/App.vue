@@ -111,6 +111,7 @@ nav a.router-link-exact-active {
   --task-action-alt: #ffc6ab;
   --task-info-1: #bfedeb;
   --task-info-2: #d4edbf;
+  --task-info-3: #bfc9ed;
   --task-archive: #bfcfed;
   --task-done: #d4edbf;
   --task-pin: #d6bfed;
