@@ -27,7 +27,7 @@
                 id="time-15"
                 v-model="newtask.duration"
               />
-              <label for="time-15">15 min</label>
+              <label for="time-15">15</label>
               <input
                 type="radio"
                 value="30"
@@ -36,7 +36,7 @@
                 checked
                 v-model="newtask.duration"
               />
-              <label for="time-30">30 min</label>
+              <label for="time-30">30</label>
               <input
                 type="radio"
                 value="60"
@@ -44,7 +44,7 @@
                 id="time-60"
                 v-model="newtask.duration"
               />
-              <label for="time-60">60 min</label>
+              <label for="time-60">60</label>
             </div>
           </div>
           <div class="task-setup-card">
@@ -78,10 +78,10 @@
                 <object
                   id="pin-icon"
                   aria-label="Task Icon"
-                  :data="require('@/assets/icon/tasks/pin-icon-alt-info.svg')"
+                  :data="require('@/assets/icon/tasks/pin-date.svg')"
                   type="image/png"
                 >
-                  <img alt="icon" :src="require('@/assets/icon/tasks/pin-icon-alt-info.png')" />
+                  <img alt="icon" :src="require('@/assets/icon/tasks/pin-date.png')" />
                 </object>
               </div>
               <div
@@ -119,7 +119,7 @@
               />
             </div>
           </div>
-          <div class="task-setup-card" data-role="vite-add-card">
+          <div class="task-setup-card" data-role="vite-add-card" v-if="do_vite_card">
             <div class="card-title header-small">VITE! Card (Optional)</div>
             <div class="card-subtitle">
               Connect your VITE! French Practice account to view practice statistics at a glance
@@ -155,6 +155,7 @@ export default {
         date: "",
         tag: "",
       },
+      do_vite_card: false,
     };
   },
   computed: {
@@ -255,14 +256,18 @@ main {
   flex-basis: 350px;
   flex-shrink: 0;
   flex-grow: 1;
-  height: 160px;
+  /* height: 160px; */
   box-sizing: border-box;
   display: flex;
   flex-flow: column nowrap;
   align-items: stretch;
   text-align: left;
   max-width: 100%;
-  min-height: 200px;
+}
+@media (min-width: 400px) {
+  input[name="time-allocated"] + label::after {
+    content: " min";
+  }
 }
 
 .card-subtitle {
@@ -328,15 +333,16 @@ select:invalid {
   flex-grow: 1;
   padding: 10px;
   text-align: center;
-  /*placeholder*/
+  user-select: none;
 }
-.radio-group label:nth-last-of-type(2) {
+.radio-group label:not(:first-of-type):not(:last-of-type) {
   margin: 0 10px;
 }
 .radio-group input:checked + label {
   opacity: 1;
   background-color: var(--accent-2);
   border-radius: 10px;
+  user-select: unset;
 }
 /* special card */
 #add-vite-card,
@@ -404,6 +410,7 @@ input[type="submit"].disabled {
   box-sizing: border-box;
   padding: 7px;
   pointer-events: none;
+  user-select: none;
 }
 #tag-options,
 #date-grouping {
