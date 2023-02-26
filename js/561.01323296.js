@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkFocusTime_Vue"]=self["webpackChunkFocusTime_Vue"]||[]).push([[561],{7561:function(e,u,n){n.r(u),n.d(u,{default:function(){return o}});var s=n(6252);const r={class:"header-large page-title"};function c(e,u,n,c,t,a){return(0,s.wg)(),(0,s.iD)("h1",r,"Focus Session")}var t={},a=n(3744);const i=(0,a.Z)(t,[["render",c]]);var o=i}}]);
-//# sourceMappingURL=561.01323296.js.map
