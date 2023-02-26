@@ -37,10 +37,6 @@ export default {
     task_card,
     fade_bars,
   },
-  data() {
-    return {};
-  },
-
   // get tasks array from parent through $parent
   computed: {
     tasks() {

@@ -1,6 +1,5 @@
 var $ = require("jquery");
 require("./util.css");
-
 ("use strict");
 /** TOAST **/
 
@@ -153,4 +152,4 @@ function cleanError(error) {
 }
 window.removePopup = removePopup;
 // expose functions to global scope
-export { removePopup, Popup, Toast, ErrorToast, WarningToast, SuccessToast, cleanError };
+export { removePopup, Popup, Toast, ErrorToast, WarningToast, SuccessToast, cleanError, $ };

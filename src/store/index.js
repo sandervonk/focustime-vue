@@ -1,10 +1,18 @@
 import { createStore } from "vuex";
 import { auth, db } from "../firebase";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-import { ErrorToast, SuccessToast, cleanError } from "@/util/util";
+import { ErrorToast, SuccessToast, cleanError, Toast } from "@/util/util";
 import { getDoc, doc, collection, updateDoc } from "firebase/firestore";
 // import router functions
 import router from "../router";
+function already_logged_in_toast() {
+  new Toast(
+    "You're already logged in!",
+    "default",
+    1000,
+    require("@/assets/icon/toast/info-unlocked-icon.svg")
+  );
+}
 
 export default createStore({
   state: {
@@ -17,23 +25,40 @@ export default createStore({
     tasks: [],
     archive: [],
     classes: [],
+    has_loaded: false,
+    waiting_for_load: false,
   },
   getters: {},
   mutations: {
     SET_USER(state, user) {
       state.user = user;
-      if ((router.currentRoute.path == "/auth" || !router.currentRoute.path) && state.user) {
-        router.push({ path: "/" });
+      if (
+        (!router.currentRoute.value ||
+          !router.currentRoute.value.path ||
+          router.currentRoute.value.path == "/auth") &&
+        state.user
+      ) {
+        already_logged_in_toast();
+        if (
+          // has redirect query
+          router.currentRoute.value.query &&
+          router.currentRoute.value.query.redirect &&
+          // redirect query is not auth or onboarding
+          router.currentRoute.value.query.redirect != "/auth" &&
+          router.currentRoute.value.query.redirect != "/onboarding" &&
+          // and it resolves
+          router.resolve(router.currentRoute.value.query.redirect).resolved
+        ) {
+          router.push(router.currentRoute.value.query.redirect);
+        } else {
+          router.push("/");
+        }
       }
+      state.has_loaded = true;
     },
     CLEAR_USER(state) {
       state.user = null;
-      if (
-        (!router.currentRoute.meta || router.currentRoute.meta.requiresAuth) &&
-        !(router.currentRoute.path == "/onboarding")
-      ) {
-        router.push({ path: "/auth" });
-      }
+      state.has_loaded = true;
     },
     SET_TASKS(state, tasks) {
       state.tasks = tasks;
@@ -50,9 +75,18 @@ export default createStore({
       state.archive = doc.archive;
       state.classes = doc.classes;
       state.settings = doc.settings;
+      state.has_loaded = true;
     },
   },
   actions: {
+    async wait_for_load({ commit }) {
+      this.state.waiting_for_load = true;
+      while (!this.state.has_loaded) {
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      }
+      this.state.waiting_for_load = false;
+      return true;
+    },
     async addTask({ commit }, task) {
       let tasks = this.state.tasks;
       tasks.push(task);
@@ -75,7 +109,6 @@ export default createStore({
 
       const archive = this.state.archive;
       archive.push(task);
-
       commit("SET_TASKS", tasks);
       await this.dispatch("update_doc");
     },
@@ -112,10 +145,11 @@ export default createStore({
     },
     async logout({ commit }) {
       await auth.signOut();
+      commit("CLEAR_USER");
       if (router.currentRoute.path !== "/auth") {
         new SuccessToast("Logged out successfully!", 2000);
+        router.push({ path: "/auth" });
       }
-      commit("CLEAR_USER");
     },
 
     async sign_in({ commit }, attempted_details) {
@@ -128,7 +162,7 @@ export default createStore({
         commit("SET_USER", user);
         new SuccessToast("Signed in successfully!", 2000);
       } catch (error) {
-        new ErrorToast("Could not sign in: ", cleanError(error), 2000);
+        new ErrorToast("Could not sign in", cleanError(error), 2000);
       }
     },
     async create_user({ commit }, attempted_details) {

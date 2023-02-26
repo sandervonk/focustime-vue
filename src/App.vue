@@ -1,9 +1,29 @@
 <template>
+  <loading_screen :show="waiting_for_load" />
   <router-view />
 </template>
 
 <script>
-export default {};
+import loading_screen from "@/components/loading_screen.vue";
+export default {
+  name: "App",
+  components: {
+    loading_screen,
+  },
+  computed: {
+    waiting_for_load() {
+      return this.$store.state.waiting_for_load && this.$route.meta.requiresAuth;
+    },
+  },
+  watch: {
+    $store: {
+      handler() {
+        this.waiting_for_load;
+      },
+      deep: true,
+    },
+  },
+};
 </script>
 
 <style>
@@ -37,7 +57,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #2e271c;
   height: 100%;
   width: 100%;
   /* sizing */
@@ -53,7 +73,7 @@ nav {
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #2e271c;
 }
 
 nav a.router-link-exact-active {
@@ -80,6 +100,7 @@ nav a.router-link-exact-active {
   --accent-4: #faf4f2;
   --accent-5: #ffc6ab;
   --handle: #0000001a;
+  --loading-screen: #d4edbf;
   /*login*/
   --login-box-bg: #ffffff0a;
   --login-secondary: #c2c2c2a4;

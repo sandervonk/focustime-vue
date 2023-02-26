@@ -1,13 +1,14 @@
 <template>
   <main class="appmain">
-    <!-- <router-view v-slot="{ Component }">
-      <transition
-        :enter-active-class="route.meta.enterClass"
-        :leave-active-class="route.meta.leaveClass"
-      >
-        <component :is="Component"
-      /></transition>
-    </router-view> -->
+    <!-- <transition
+      :enter-active-class="route.meta.enterClass"
+      :leave-active-class="route.meta.leaveClass"
+    >
+      <router-view v-slot="{ Component }">
+        <component :is="Component" />
+      </router-view>
+    </transition> -->
+
     <router-view />
     <raised_section
       ref="daily_tasks"
@@ -82,11 +83,7 @@ export default {
     nav_bar,
     raised_section,
   },
-  data() {
-    return {};
-  },
 
-  // load tasks from firebase
   created() {
     this.$store.dispatch("get_doc");
   },
@@ -122,7 +119,7 @@ export default {
   },
   // watch route changes
   watch: {
-    $route(to, from) {
+    $route(to) {
       if (to.path !== "/") {
         this.$refs.daily_tasks.isRaised = false;
       } else if (to.path === "/") {
