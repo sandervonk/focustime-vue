@@ -3,6 +3,7 @@
     class="task-card"
     :class="{ editing: is_editing, pinned: is_pinned, completed: is_completed }"
     v-touch:swipe="swipeHandler"
+    v-if="!task.is_separator"
   >
     <!-- swipe pin -->
     <div class="task-card-swipe-pin">
@@ -70,6 +71,7 @@
       </div>
     </div>
   </div>
+  <div class="separator" v-else>wait no way this works</div>
 </template>
 
 <script>
@@ -112,7 +114,7 @@ export default {
   },
   computed: {
     task_id() {
-      return this.task.title.hashCode();
+      return this.task.title ? this.task.title.hashCode() : "separator";
     },
   },
   data() {

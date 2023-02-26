@@ -15,9 +15,9 @@
     <fade_bars>
       <div data-role="tasks-list" :class="{ 'flex-center': !tasks || !tasks.length }">
         <!-- ensure the following updates correctly -->
-        <task_card :task="task" v-for="task in tasks" :key="task.title" v-cloak />
+        <task_card :task="task" v-for="task in tasks" :key="task.title" />
         <!-- placeholder -->
-        <div v-if="!tasks || !tasks.length" v-cloak>
+        <div v-if="!tasks || !tasks.length">
           <h2 id>
             No tasks yet, add one in the
             <router-link class="boldlink" to="/create">create tab</router-link>
@@ -42,7 +42,26 @@ export default {
     tasks() {
       //! sort tasks by date. in order of date being set to: pinned, priority, no date, dates by time
       let tasks = this.$store.state.tasks;
-      // if store.state.settings and store.state.settings.do_hide_complete is true, filter out completed tasks
+      // sort by pinned & time
+      tasks.sort((a, b) => {
+        // pinned
+        if (a.pinned && !b.pinned) return -1;
+        if (!a.pinned && b.pinned) return 1;
+        // priority
+        if (a.priority && !b.priority) return -1;
+        if (!a.priority && b.priority) return 1;
+        // no date
+        if (!a.date && b.date) return -1;
+        if (a.date && !b.date) return 1;
+        // date
+        if (a.date && b.date) {
+          if (a.date < b.date) return -1;
+          if (a.date > b.date) return 1;
+        }
+        return 0;
+      });
+
+      // filter out completed tasks if setting is set
       if (this.$store.state.settings && this.$store.state.settings.do_hide_complete) {
         tasks = tasks.filter((task) => !task.completed);
       }
