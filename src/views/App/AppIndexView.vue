@@ -100,16 +100,16 @@ div[data-role="tasks-list"] {
   width: 100%;
   flex-grow: 1;
   box-sizing: border-box;
+  padding: 30px 0;
 }
 /* top bar */
 #home-head-row {
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 0;
   display: flex;
   flex-flow: row nowrap;
   width: 100%;
-
   font-size: 26px;
   font-family: "Montserrat", sans-serif;
   font-weight: 700;

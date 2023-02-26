@@ -12,7 +12,7 @@ router.beforeEach((to, from, next) => {
   // if router meta requires auth and user is not logged in, redirect to auth page
   if (to.meta && to.meta.requiresAuth && !store.state.user) {
     if (to.path == "/") {
-      next({ path: "/onboarding" });
+      if (from.path != "/") next({ path: "/onboarding" });
     } else {
       next({ path: "/auth" });
       new Toast(

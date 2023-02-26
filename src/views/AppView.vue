@@ -145,39 +145,6 @@ main.appmain {
   overflow: hidden;
   padding-bottom: 0;
 }
-/* list */
-div[data-role="tasks-list"] {
-  flex-flow: column nowrap;
-  display: flex;
-  width: 100%;
-  flex-grow: 0;
-  box-sizing: border-box;
-  flex-basis: 0px;
-  height: 0px;
-  overflow-y: auto;
-}
-/* top bar */
-#home-head-row {
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  display: flex;
-  flex-flow: row nowrap;
-
-  font-size: 26px;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 700;
-}
-#home-logout,
-#home-logout * {
-  height: 40px;
-  width: 40px;
-  cursor: pointer;
-}
-
-#home-logout * {
-  pointer-events: none;
-}
 </style>
 <style scoped>
 @media (min-width: 600px) {
