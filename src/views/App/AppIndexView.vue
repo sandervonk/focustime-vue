@@ -15,9 +15,9 @@
     <fade_bars>
       <div data-role="tasks-list" :class="{ 'flex-center': !tasks || !tasks.length }">
         <!-- ensure the following updates correctly -->
-        <task_card :task="task" v-for="task in tasks" :key="task.title" />
+        <task_card :task="task" v-for="task in tasks" :key="task.title" v-cloak />
         <!-- placeholder -->
-        <div v-if="!tasks || !tasks.length">
+        <div v-if="!tasks || !tasks.length" v-cloak>
           <h2 id>
             No tasks yet, add one in the
             <router-link class="boldlink" to="/create">create tab</router-link>
@@ -44,7 +44,7 @@ export default {
   // get tasks array from parent through $parent
   computed: {
     tasks() {
-      // sort tasks by date. in order of date being set to: pinned, priority, no date, dates by time
+      //! sort tasks by date. in order of date being set to: pinned, priority, no date, dates by time
       let tasks = this.$store.state.tasks;
       // if store.state.settings and store.state.settings.do_hide_complete is true, filter out completed tasks
       if (this.$store.state.settings && this.$store.state.settings.do_hide_complete) {
@@ -73,7 +73,7 @@ export default {
     // when store tasks change, update tasks
     $store: {
       handler() {
-        // force an update to the computed property
+        this.tasks;
       },
       deep: true,
     },

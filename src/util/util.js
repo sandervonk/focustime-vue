@@ -2,16 +2,6 @@ var $ = require("jquery");
 require("./util.css");
 
 ("use strict");
-/** URI SEARCH TERMS **/
-
-if (window.history) {
-  history.replaceState(
-    {},
-    "",
-    window.location.href.substr(0, window.location.href.length - window.location.search.length)
-  );
-}
-
 /** TOAST **/
 
 class Toast {

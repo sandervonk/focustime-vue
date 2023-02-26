@@ -303,47 +303,6 @@ select:invalid {
   color: var(--primary-bg-half) !important;
 }
 
-.radio-group {
-  margin-top: 10px;
-  padding: 10px;
-  flex-flow: row nowrap;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
-  display: flex;
-  box-sizing: border-box;
-}
-.radio-group input {
-  width: 0;
-  height: 0;
-  opacity: 0;
-  position: absolute;
-  cursor: pointer;
-  pointer-events: all;
-  user-select: none;
-}
-.radio-group label {
-  cursor: pointer;
-  font-family: "Roboto", sans-serif;
-  font-size: 20px;
-  font-weight: 800;
-  opacity: 0.5;
-  transition: opacity 0.15s ease-in-out, background-color 0.15s ease-in-out;
-  color: var(--primary-bg);
-  flex-grow: 1;
-  padding: 10px;
-  text-align: center;
-  user-select: none;
-}
-.radio-group label:not(:first-of-type):not(:last-of-type) {
-  margin: 0 10px;
-}
-.radio-group input:checked + label {
-  opacity: 1;
-  background-color: var(--accent-2);
-  border-radius: 10px;
-  user-select: unset;
-}
 /* special card */
 #add-vite-card,
 input[type="submit"] {
