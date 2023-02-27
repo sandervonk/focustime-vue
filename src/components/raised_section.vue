@@ -86,7 +86,7 @@ export default {
   flex-flow: column;
   align-items: stretch;
   /* transition */
-  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, max-width 0.5s ease, max-height 0.5s ease;
   z-index: 1;
 }
 @media (max-height: 500px) {
