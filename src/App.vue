@@ -144,7 +144,8 @@ input[type="button"],
 [onclick],
 a[href],
 *[form-action],
-button {
+button,
+.has-click {
   cursor: pointer;
   user-select: none;
 }

@@ -183,5 +183,29 @@ export default createStore({
         new ErrorToast("Could not create account: ", cleanError(error), 2000);
       }
     },
+    async archive_done_tasks({ commit }) {
+      let tasks = this.state.tasks;
+      let archive = this.state.archive;
+      for (let i = 0; i < tasks.length; i++) {
+        if (tasks[i].is_completed) {
+          archive.push(tasks[i]);
+          tasks.splice(i, 1);
+          i--;
+        }
+      }
+      commit("SET_TASKS", tasks);
+      await this.dispatch("update_doc");
+    },
+    async delete_done_tasks({ commit }) {
+      let tasks = this.state.tasks;
+      for (let i = 0; i < tasks.length; i++) {
+        if (tasks[i].is_completed) {
+          tasks.splice(i, 1);
+          i--;
+        }
+      }
+      commit("SET_TASKS", tasks);
+      await this.dispatch("update_doc");
+    },
   },
 });

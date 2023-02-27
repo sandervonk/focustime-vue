@@ -68,14 +68,46 @@ router.afterEach((to) => {
 window.$ = require("jquery");
 import "./registerServiceWorker";
 window.logoutPrompt = function () {
-  new Popup(["Sign Out", "Are you sure you want to sign out?"], "default", 10000, "", [
-    ["removePopup()", "Cancel", "secondary-action fullborder"],
-    ["removePopup()", "Yes", "primary-action click-to-logout"],
-  ]);
+  new Popup(
+    ["Sign Out", "Are you sure you want to sign out?"],
+    "default",
+    10000,
+    require("@/assets/icon/toast/popup-out.svg"),
+    [
+      ["removePopup()", "Cancel", "secondary-action fullborder"],
+      ["removePopup()", "Yes", "primary-action click-to-logout"],
+    ]
+  );
 };
+
+window.clearCompletedPrompt = function () {
+  new Popup(
+    ["Completed tasks", "Are you sure you want to delete all completed tasks before today?"],
+    "default",
+    10000,
+    require("@/assets/icon/toast/popup-done.svg"),
+    [
+      ["removePopup();", "Cancel", "secondary-action fullborder"],
+      ["", "", "popup-divider"],
+      ["removePopup();", "Delete", "secondary-action blue-button click-to-delete"],
+      [
+        "removePopup();",
+        "Archive",
+        "primary-action blue-button DATA-clear-completed-old-tasks click-to-archive",
+      ],
+    ]
+  );
+};
+
 // if a element is clicked and it has a click-to-logout class, then logout
 window.$(document.body).on("click", ".click-to-logout", function () {
   store.dispatch("logout");
+});
+window.$(document.body).on("click", ".click-to-delete", function () {
+  store.dispatch("delete_done_tasks");
+});
+window.$(document.body).on("click", ".click-to-archive", function () {
+  store.dispatch("archive_done_tasks");
 });
 
 // expose update_doc function to window

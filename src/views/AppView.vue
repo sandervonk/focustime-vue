@@ -42,7 +42,7 @@
         </div>
       </div>
       <div id="data-cards">
-        <div class="data-card" id="card-completed">
+        <div class="data-card has-click" id="card-completed" @click="clearCompletedPrompt">
           <div data-role="progress-completed" class="header-large">
             {{ num_completed || num_completed == 0 ? num_completed : "—" }}
           </div>
@@ -125,6 +125,11 @@ export default {
       } else if (to.path === "/") {
         this.$refs.daily_tasks.isRaised = true;
       }
+    },
+  },
+  methods: {
+    clearCompletedPrompt() {
+      window.clearCompletedPrompt();
     },
   },
 };
