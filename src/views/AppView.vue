@@ -152,8 +152,6 @@ main.appmain {
     transition: width 0.5s ease, border-radius 0.5s ease;
   }
 }
-@media (min-width: 760px) {
-}
 </style>
 <style>
 body,
@@ -250,6 +248,15 @@ html {
 <style>
 /* style for large devices */
 @media (min-width: 905px) {
+  /* .show-in-desktop {
+    display: block !important;
+  }
+  [data-role="tasks-list"] {
+    flex-flow: column wrap !important;
+  }
+  .task-card {
+    margin: 10px !important;
+  } */
   #nav_bar {
     margin-left: 0;
     width: 360px;

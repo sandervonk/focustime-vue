@@ -12,9 +12,13 @@
         </object>
       </div>
     </div>
-    <fade_bars>
-      <div data-role="tasks-list" :class="{ 'flex-center': !tasks || !tasks.length }">
-        <!-- ensure the following updates correctly -->
+
+    <fade_bars id="scroll-container">
+      <div
+        data-role="tasks-list"
+        :class="{ 'flex-center': !tasks || !tasks.length }"
+        id="scroll-region"
+      >
         <task_card :task="task" v-for="task in tasks" :key="task.title" />
         <!-- placeholder -->
         <div v-if="!tasks || !tasks.length">
@@ -31,6 +35,40 @@
 <script>
 import task_card from "@/components/task_card.vue";
 import fade_bars from "@/components/fade_bars.vue";
+function makeDateTitle(date, pinned = false) {
+  if (!date || date == "pinned") {
+    return "Pinned";
+  } else if (new Date().toISOString().split("T")[0] == date) {
+    return "Today";
+  } else {
+    //format date and add th, nd, st, etc endings
+    let formatted_date = new Date(date).toLocaleDateString("en-us", {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      timeZone: "UTC",
+    });
+    let day = formatted_date.split(" ")[2],
+      day_endings = ["th", "st", "nd", "rd"];
+    let day_ending = day_endings[0];
+    if (day > 3 && day < 21) {
+      day_ending = day_endings[0];
+    } else {
+      switch (day % 10) {
+        case 1:
+          day_ending = day_endings[1];
+          break;
+        case 2:
+          day_ending = day_endings[2];
+          break;
+        case 3:
+          day_ending = day_endings[3];
+          break;
+      }
+    }
+    return formatted_date.split(" ").slice(0, 2).join(" ") + " " + day + day_ending;
+  }
+}
 export default {
   name: "AppView",
   components: {
@@ -41,15 +79,11 @@ export default {
   computed: {
     tasks() {
       //! sort tasks by date. in order of date being set to: pinned, priority, no date, dates by time
-      let tasks = this.$store.state.tasks;
-      // sort by pinned & time
-      tasks.sort((a, b) => {
+      let tasks = [...this.$store.getters.get_tasks];
+      tasks = tasks.sort((a, b) => {
         // pinned
-        if (a.pinned && !b.pinned) return -1;
-        if (!a.pinned && b.pinned) return 1;
-        // priority
-        if (a.priority && !b.priority) return -1;
-        if (!a.priority && b.priority) return 1;
+        if ((a.pinned && !b.pinned) || (a.date == "pinned" && b.date != "pinned")) return -1;
+        if ((!a.pinned && b.pinned) || (a.date != "pinned" && b.date == "pinned")) return 1;
         // no date
         if (!a.date && b.date) return -1;
         if (a.date && !b.date) return 1;
@@ -65,6 +99,34 @@ export default {
       if (this.$store.state.settings && this.$store.state.settings.do_hide_complete) {
         tasks = tasks.filter((task) => !task.completed);
       }
+      // add section headers for each date
+      let last_date = null;
+      for (let i = 0; i < tasks.length; i++) {
+        let task = tasks[i];
+        if (last_date != task.date) {
+          let date = new Date(task.date),
+            date_string = "",
+            date_title = "";
+          if (isNaN(date)) {
+            date = "Pinned";
+            date_string = "Pinned";
+            date_title = "Pinned";
+          } else {
+            date_string = date.toISOString().split("T")[0];
+            date_title = makeDateTitle(date);
+          }
+          if (date_string != last_date) {
+            last_date = date_string;
+            tasks.splice(i, 0, {
+              is_separator: true,
+              date: date_string,
+              title: date_title,
+            });
+            i++;
+          }
+        }
+      }
+
       return tasks;
     },
     greeting() {
@@ -98,16 +160,33 @@ export default {
 
 <style scoped>
 main.app {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  padding: 0;
-  margin: 0;
-  flex-grow: 1;
+  height: 100%;
+  padding: 30px;
   box-sizing: border-box;
   display: flex;
-  align-items: flex-start;
-  justify-content: stretch;
   flex-flow: column nowrap;
 }
+/* scroll stuff */
+#scroll-container {
+  flex-basis: 0;
+  flex-grow: 1;
+  overflow-y: hidden;
+}
+
+#scroll-region {
+  overflow-y: auto;
+  padding-top: 25px;
+  padding-bottom: 65px;
+  flex-basis: 0;
+  flex-grow: 1;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
 /* list */
 div[data-role="tasks-list"] {
   flex-flow: column nowrap;

@@ -1,5 +1,10 @@
 <template>
   <div
+    class="flex-horiz-break show-in-desktop"
+    v-if="task.is_separator"
+    style="display: none"
+  ></div>
+  <div
     class="task-card"
     :class="{ editing: is_editing, pinned: is_pinned, completed: is_completed }"
     v-touch:swipe="swipeHandler"
@@ -71,15 +76,16 @@
       </div>
     </div>
   </div>
-  <div class="separator" v-else>wait no way this works</div>
+
+  <div class="task-section-header" v-else :timestamp="task.date">
+    <span>{{ task.title }}</span>
+  </div>
 </template>
 
 <script>
 // import libaries to use to archive this task or mark it as complete in firebase firestore
 
 import { Toast } from "@/util/util";
-// import jquery
-// import fallback_svg from "./fallback_svg";
 import task_info_card from "./task_info_card";
 String.prototype.hashCode = function () {
   let hash = 0,
@@ -452,5 +458,46 @@ iframe.task-card-content,
 .task-card.completed > .task-card-content > * {
   opacity: 0.25;
   filter: blur(2px);
+}
+</style>
+<style scoped>
+.task-section-header {
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary-bg);
+  margin: 5px auto 0 auto;
+  padding: 0;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 0.75;
+  width: fit-content;
+}
+
+.task-section-header:first-child,
+.task-section-header:nth-child(2) {
+  margin-top: 0;
+}
+.time-section-break {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0;
+  height: 80px;
+  background-image: url(@/assets/art/nothing.svg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.flex-horiz-break {
+  flex-basis: 100%;
+  width: 0 !important;
+}
+.flex-horiz-break:first-child {
+  display: none !important;
 }
 </style>

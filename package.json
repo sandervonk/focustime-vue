@@ -1,5 +1,5 @@
 {
-  "name": "FocusTime-Vue",
+  "name": "FocusTime-vue",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -33,5 +33,5 @@
     "gh-pages": "^5.0.0",
     "mini-css-extract-plugin": "^2.5.3"
   },
-  "homepage": "https://sander.vonk.one/focustime-vue/"
+  "homepage": "https://sander.vonk.one/FocusTime-vue/"
 }

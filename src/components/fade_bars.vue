@@ -22,7 +22,6 @@ export default {
 }
 .fade-content {
   position: relative;
-  flex-grow: 1;
   display: flex;
   flex-grow: 1;
   flex-direction: column;

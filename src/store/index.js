@@ -28,7 +28,11 @@ export default createStore({
     has_loaded: false,
     waiting_for_load: false,
   },
-  getters: {},
+  getters: {
+    get_tasks: (state) => {
+      return state.tasks;
+    },
+  },
   mutations: {
     SET_USER(state, user) {
       state.user = user;
