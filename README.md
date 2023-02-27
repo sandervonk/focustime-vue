@@ -1,4 +1,4 @@
-# FocusTime-vue
+# focustime-vue
 
 ## Project setup
 
