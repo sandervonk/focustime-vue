@@ -1,14 +1,10 @@
 <template>
   <div
-    class="flex-horiz-break show-in-desktop"
-    v-if="task.is_separator"
-    style="display: none"
-  ></div>
-  <div
     class="task-card"
     :class="{ editing: is_editing, pinned: is_pinned, completed: is_completed }"
     v-touch:swipe="swipeHandler"
     v-if="!task.is_separator"
+    ref="task_card"
   >
     <!-- swipe pin -->
     <div class="task-card-swipe-pin">
@@ -165,9 +161,23 @@ export default {
     },
     handleArchive() {
       this.$el.classList.add("swipe-out-archive");
+      // check if this is the only task between two separators
+      let is_only_child = false;
+      if (this.$el.previousElementSibling && this.$el.nextElementSibling) {
+        if (
+          this.$el.previousElementSibling.classList.contains("task-section-header") &&
+          this.$el.nextElementSibling.classList.contains("task-section-header")
+        ) {
+          is_only_child = true;
+          this.$el.previousElementSibling.classList.add("swipe-out-archive");
+        }
+      }
       setTimeout(() => {
         this.$store.dispatch("archiveTask", this.task);
         this.$el.remove();
+        if (is_only_child) {
+          this.$el.previousElementSibling.remove();
+        }
       }, 500);
       // toast
       new Toast("Task archived!", "default", 1000, require("@/assets/icon/toast/archive-icon.svg"));
@@ -427,6 +437,14 @@ iframe.task-card-content,
   opacity: 0 !important;
   transform: translateX(-100%) scale(0) !important;
   transform-origin: center left;
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out, margin 0.5s ease-out !important;
+}
+/* animate header */
+.task-section-header.swipe-out-archive {
+  margin-top: -12px !important;
+  margin-bottom: -12px !important;
+  opacity: 0 !important;
+  transform: scale(0) !important;
   transition: opacity 0.5s ease-out, transform 0.5s ease-out, margin 0.5s ease-out !important;
 }
 /* completed */
