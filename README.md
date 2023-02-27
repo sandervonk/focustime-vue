@@ -27,3 +27,8 @@ npm run lint
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+#### To change deployment domain:
+
+> Set "homepage" in `./package.json`
+> Set "module.exports.publicPath" equation in `./vue.config.js`

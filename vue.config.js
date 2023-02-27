@@ -1,7 +1,7 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  publicPath: process.env.NODE_ENV === "production" ? "/FocusTime-vue/" : "/",
+  publicPath: process.env.NODE_ENV === "production" ? "/focustime-vue/" : "/",
   // publicPath: process.env.NODE_ENV === "production" ? "/" : "/",
   configureWebpack: {
     plugins: [new MiniCssExtractPlugin()],
