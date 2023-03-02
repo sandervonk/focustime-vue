@@ -69,6 +69,7 @@ function makeDateTitle(date, pinned = false) {
     return formatted_date.split(" ").slice(0, 2).join(" ") + " " + day + day_ending;
   }
 }
+let day_to_ms = 24*60*60*1000
 export default {
   name: "AppView",
   components: {
@@ -98,6 +99,10 @@ export default {
       // filter out completed tasks if setting is set
       if (this.$store.state.settings && this.$store.state.settings.do_hide_complete) {
         tasks = tasks.filter((task) => !task.completed);
+      } else {
+        tasks = tasks.filter((task) => {
+          !task.completed || (!task.date || isNaN(new Date(task.date)) || new Date().getTime() > new Date().getTime() - day_to_ms)
+        });
       }
       // add section headers for each date
       let last_date = null;
