@@ -69,7 +69,7 @@ function makeDateTitle(date, pinned = false) {
     return formatted_date.split(" ").slice(0, 2).join(" ") + " " + day + day_ending;
   }
 }
-let day_to_ms = 24*60*60*1000
+let day_to_ms = 24 * 60 * 60 * 1000;
 export default {
   name: "AppView",
   components: {
@@ -98,10 +98,14 @@ export default {
 
       // filter out completed tasks if setting is set
       if (this.$store.state.settings && this.$store.state.settings.do_hide_complete) {
-        tasks = tasks.filter((task) => !task.completed);
+        tasks = tasks.filter((task) => !task.is_completed);
       } else {
+        let today_date = new Date(new Date().toISOString().split("T")[0]);
         tasks = tasks.filter((task) => {
-          !task.completed || (!task.date || isNaN(new Date(task.date)) || new Date().getTime() > new Date().getTime() - day_to_ms)
+          if (!task.is_completed) return true;
+          if (!task.date || isNaN(new Date(task.date))) return true;
+          if (new Date(task.date).getTime() >= today_date.getTime() - day_to_ms) return true;
+          return false;
         });
       }
       // add section headers for each date

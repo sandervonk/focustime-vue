@@ -77,6 +77,7 @@
 <script>
 import nav_bar from "@/components/nav_bar.vue";
 import raised_section from "@/components/raised_section.vue";
+let day_to_ms = 24 * 60 * 60 * 1000;
 export default {
   name: "AppView",
   components: {
@@ -89,7 +90,15 @@ export default {
   },
   computed: {
     tasks() {
-      return this.$store.state.tasks;
+      let tasks = this.$store.state.tasks;
+      let today_date = new Date(new Date().toISOString().split("T")[0]);
+      tasks = tasks.filter((task) => {
+        if (!task.is_completed) return true;
+        if (!task.date || isNaN(new Date(task.date))) return true;
+        if (new Date(task.date).getTime() >= today_date.getTime() - day_to_ms) return true;
+        return false;
+      });
+      return tasks;
     },
     num_completed() {
       let completed = 0;
