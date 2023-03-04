@@ -1,14 +1,21 @@
 {
   "name": "focustime-vue",
-  "version": "0.1.0",
+  "author": "Sander Vonk",
+  "description": "Improve your productivity by scheduling out your time into more meaningful 'focus sessions' with FocusTime",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "gh-pages -d dist",
-    "predeploy": "npm run build"
+    "deploy": "(mkdir dist\\download 2>nul & move /Y dist_electron\\*.exe dist\\download\\ && ren dist\\download\\*.exe focustime.exe) & gh-pages -d dist",
+    "electron:build": "vue-cli-service electron:build",
+    "electron:serve": "vue-cli-service electron:serve",
+    "postinstall": "electron-builder install-app-deps",
+    "postuninstall": "electron-builder install-app-deps",
+    "predeploy": "npm run build && npm run electron:build"
   },
+  "main": "background.js",
   "dependencies": {
     "core-js": "^3.8.3",
     "firebase": "^9.17.1",
@@ -28,10 +35,13 @@
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "electron": "^13.0.0",
+    "electron-devtools-installer": "^3.1.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "gh-pages": "^5.0.0",
-    "mini-css-extract-plugin": "^2.5.3"
+    "mini-css-extract-plugin": "^2.5.3",
+    "vue-cli-plugin-electron-builder": "~2.1.1"
   },
   "homepage": "https://svonk.me/focusime-vue/"
 }

@@ -6,6 +6,16 @@ module.exports = {
   configureWebpack: {
     plugins: [new MiniCssExtractPlugin()],
   },
+  pluginOptions: {
+    electronBuilder: {
+      builderOptions: {
+        appId: "me.svonk.focustime-vue",
+        appUserModelId: "me.svonk.focustime-vue",
+        productName: "FocusTime (Vue)",
+        icon: "./assets/icon/favicon/favicon-256x256.png",
+      },
+    },
+  },
   // https://cli.vuejs.org/guide/html-and-static-assets.html#the-public-folder
   pages: {
     index: {
