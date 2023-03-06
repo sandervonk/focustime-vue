@@ -137,7 +137,7 @@ router-link {
   flex-grow: 1;
 }
 /* styles for large screens */
-@media (min-width: 800px) and (min-height: 800px) {
+@media (min-width: 800px) and (min-height: 600px) {
   main.login {
     width: 600px;
   }

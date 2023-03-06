@@ -12,7 +12,7 @@ module.exports = {
         appId: "me.svonk.focustime-vue",
         appUserModelId: "me.svonk.focustime-vue",
         productName: "FocusTime (Vue)",
-        icon: "./assets/icon/favicon/favicon-256x256.png",
+        icon: "src/assets/icon/favicon/favicon-256x256.png",
       },
     },
   },
