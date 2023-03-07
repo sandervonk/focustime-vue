@@ -5,16 +5,20 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
+    "release": "(npm run build & npm run compile) & npm run publish",
+    "publish": "gh-pages -d dist",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "postdeploy": "npm run electron:build && (mkdir dist\\download 2>nul & move /Y dist_electron\\*.exe dist\\download\\ && ren dist\\download\\*.exe focustime.exe) && gh-pages -d dist",
-    "deploy": "gh-pages -d dist",
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
+    "predeploy": "npm run build",
+    "deploy": "npm run publish",
+    "postdeploy": "npm run compile && npm run publish",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
-    "predeploy": "npm run build"
+    "compile": "npm run electron:build",
+    "postcompile": "(mkdir dist\\download 2>nul & move /Y dist_electron\\*.exe dist\\download\\ && ren dist\\download\\*.exe focustime-setup.exe) && npm run publish"
   },
   "main": "background.js",
   "dependencies": {
