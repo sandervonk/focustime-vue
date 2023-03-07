@@ -37,7 +37,67 @@ async function createWindow() {
     win.loadURL("app://./index.html");
   }
 }
-
+// setup user tasks for taskbar actions
+// app.setUserTasks([
+//   // new window
+//   {
+//     program: process.execPath,
+//     arguments: "--new-window",
+//     iconPath: process.execPath,
+//     iconIndex: 0,
+//     title: "New Window",
+//     description: "Open a new FocusTime window",
+//   },
+//   // create a task -> navigate to /create in the app
+//   {
+//     // open the app and navigate to /create
+//     program: process.execPath,
+//     arguments: "--navigate-to-create",
+//     iconPath: process.execPath,
+//     iconIndex: 0,
+//     title: "Create Task",
+//     description: "Create a new task",
+//   },
+//   {
+//     // open the app and navigate to /session
+//     program: process.execPath,
+//     arguments: "--navigate-to-session",
+//     iconPath: process.execPath,
+//     iconIndex: 0,
+//     title: "Start Focus Session",
+//     description: "Start a new focus session",
+//   },
+//   {
+//     // open the app and navigate to /
+//     program: process.execPath,
+//     arguments: "--navigate-to-home",
+//     iconPath: process.execPath,
+//     iconIndex: 0,
+//     title: "Open Task List",
+//     description: "Open the task list",
+//   },
+// ]);
+// handle the taskbar actions
+// app.on("second-instance", (event, argv) => {
+//   // Someone tried to run a second instance, we should focus our window.
+//   if (win) {
+//     if (win.isMinimized()) win.restore();
+//     win.focus();
+//   }
+//   // handle the taskbar actions
+//   if (argv.includes("--new-window")) {
+//     createWindow();
+//   }
+//   // if (argv.includes("--navigate-to-create")) {
+//   //   win.loadURL("app://./create");
+//   // }
+//   // if (argv.includes("--navigate-to-session")) {
+//   //   win.loadURL("app://./session");
+//   // }
+//   // if (argv.includes("--navigate-to-home")) {
+//   //   win.loadURL("app://./");
+//   // }
+// });
 // Quit when all windows are closed.
 app.on("window-all-closed", () => {
   // On macOS it is common for applications and their menu bar
