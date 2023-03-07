@@ -187,7 +187,12 @@ export default createStore({
       let tasks = this.state.tasks;
       let archive = this.state.archive;
       for (let i = 0; i < tasks.length; i++) {
-        if (tasks[i].is_completed) {
+        if (
+          tasks[i].is_completed &&
+          task.date &&
+          !isNaN(task.date) &&
+          new Date(task.date).getTime < new Date().getTime - 86400000
+        ) {
           archive.push(tasks[i]);
           tasks.splice(i, 1);
           i--;
@@ -199,7 +204,12 @@ export default createStore({
     async delete_done_tasks({ commit }) {
       let tasks = this.state.tasks;
       for (let i = 0; i < tasks.length; i++) {
-        if (tasks[i].is_completed) {
+        if (
+          tasks[i].is_completed &&
+          tasks[i].date &&
+          !isNaN(tasks[i].date) &&
+          new Date(tasks[i].date).getTime < new Date().getTime - 86400000
+        ) {
           tasks.splice(i, 1);
           i--;
         }
