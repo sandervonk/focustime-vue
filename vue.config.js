@@ -1,10 +1,21 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   publicPath: process.env.NODE_ENV === "production" ? "/focustime-vue/" : "/",
   // publicPath: process.env.NODE_ENV === "production" ? "/" : "/",
   configureWebpack: {
-    plugins: [new MiniCssExtractPlugin()],
+    plugins: [
+      new MiniCssExtractPlugin(),
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            from: "public/index.html",
+            to: "404.html",
+          },
+        ],
+      }),
+    ],
   },
   pluginOptions: {
     electronBuilder: {
@@ -20,11 +31,6 @@ module.exports = {
   pages: {
     index: {
       // entry for the page
-      entry: "src/main.js",
-      title: "Focustime (Vue)",
-    },
-    404: {
-      // entry for the 404 that mirrors index.html
       entry: "src/main.js",
       title: "Focustime (Vue)",
     },
