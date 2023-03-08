@@ -5,7 +5,7 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
-    "release": "(npm run build & npm run compile) & npm run publish",
+    "release": "npm run build & npm run compile",
     "publish": "gh-pages -d dist",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
