@@ -189,9 +189,9 @@ export default createStore({
       for (let i = 0; i < tasks.length; i++) {
         if (
           tasks[i].is_completed &&
-          task.date &&
-          !isNaN(task.date) &&
-          new Date(task.date).getTime < new Date().getTime - 86400000
+          tasks[i].date &&
+          !isNaN(tasks[i].date) &&
+          new Date(tasks[i].date).getTime < new Date().getTime - 86400000
         ) {
           archive.push(tasks[i]);
           tasks.splice(i, 1);
